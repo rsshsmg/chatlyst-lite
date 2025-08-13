@@ -57,7 +57,12 @@ Simple CRM for Healthcare. Build with Laravel.
 
 ## Notes:
 
-N/A
+Jika super admin kena Forbidden, jalankan:
+
+```bash
+php artisan optimize:clear
+php artisan permission:cache-reset
+```
 
 ## Security Vulnerabilities
 
