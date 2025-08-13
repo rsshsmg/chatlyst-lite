@@ -34,7 +34,7 @@ class Address extends Model
 
     public function subdistrict(): BelongsTo
     {
-        return $this->belongsTo(Subdistrict::class);
+        return $this->belongsTo(SubDistrict::class);
     }
 
     public function country(): BelongsTo
