@@ -8,8 +8,52 @@ Simple CRM for Healthcare. Build with Laravel.
 
 1. Clone
 2. Install dependencies
-3. Setup environment
-4. Deploy production
+
+    ```bash
+    composer install --optimize-autoloader --no-dev
+
+    npm install
+
+    npm run build
+    ```
+
+3. Setup database
+   Create database and run migrations
+
+    ```bash
+        php artisan migrate --force --seed
+    ```
+
+4. Setup environment
+
+    ```bash
+    php artisan key:generate
+
+    php artisan migrate --force --seed
+
+    php artisan shield:generate
+
+    php artisan permission:cache-reset
+
+    php artisan reverb:install
+
+    npm install
+
+    npm run build
+    ```
+
+5. Sync database
+
+    ```bash
+    php artisan sync:education --force
+
+    php artisan sync:jobtitle --force
+
+    // ... sync data pegawai Sango
+    php artisan sync:person --force
+
+    php artisan sync:patient --force
+    ```
 
 ## Notes:
 
