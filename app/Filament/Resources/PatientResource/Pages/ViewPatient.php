@@ -14,7 +14,7 @@ use App\Models\Address;
 use App\Models\Identity;
 use App\Models\Person;
 use App\Models\Phone;
-use App\Models\SubDistrict;
+use App\Models\Subdistrict;
 use Carbon\Carbon;
 use Filament\Actions;
 use Filament\Forms;
@@ -257,7 +257,7 @@ class ViewPatient extends ViewRecord
                                                 ->size(Infolists\Components\TextEntry\TextEntrySize::Medium),
                                             Infolists\Components\TextEntry::make('subdistrict')
                                                 ->label('')
-                                                ->formatStateUsing(fn(SubDistrict $state): string => implode(', ', [
+                                                ->formatStateUsing(fn(Subdistrict $state): string => implode(', ', [
                                                     $state->name,
                                                     $state->district->name,
                                                     $state->district->regency->name,
