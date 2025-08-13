@@ -18,12 +18,13 @@ class PhoneExporter extends Exporter
                 ->label('ID'),
             ExportColumn::make('person.full_name')->label('Full Name'),
             ExportColumn::make('number'),
+            // ExportColumn::make('person.age')->label('Age'),
             // ExportColumn::make('country_code'),
-            ExportColumn::make('is_whatsapp')
-                ->label('Channel'),
-            ExportColumn::make('verified_at'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            // ExportColumn::make('is_whatsapp')
+            //     ->label('Channel'),
+            // ExportColumn::make('verified_at'),
+            // ExportColumn::make('created_at'),
+            // ExportColumn::make('updated_at'),
         ];
     }
 

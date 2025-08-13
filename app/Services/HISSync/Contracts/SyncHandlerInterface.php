@@ -10,4 +10,6 @@ interface SyncHandlerInterface
      * Simpan data dari DTO ke dalam model internal.
      */
     public function handle(object $dto): mixed;
+
+    public function getExecutionTime(): float;
 }

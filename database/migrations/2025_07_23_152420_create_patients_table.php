@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('person_id')->constrained()->restrictOnDelete();
-            $table->string('patient_id', 12)->nullable();
-            $table->string('ref_patient_id', 12)->nullable();
+            $table->string('patient_code', 12)->nullable();
+            $table->string('ref_patient_code', 12)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

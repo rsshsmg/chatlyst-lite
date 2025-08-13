@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PatientResource\Pages;
 
+use App\Enums\AddressType;
 use App\Enums\BloodType;
 use App\Enums\Gender;
 use App\Enums\IdentityType;
@@ -9,6 +10,7 @@ use App\Enums\MaritalStatus;
 use App\Enums\RelationType;
 use App\Enums\ReligionType;
 use App\Filament\Resources\PatientResource;
+use App\Models\Address;
 use App\Models\Identity;
 use App\Models\Person;
 use App\Models\Phone;
@@ -112,6 +114,9 @@ class ViewPatient extends ViewRecord
                                             Infolists\Components\TextEntry::make('identity_type')
                                                 ->label('')
                                                 ->formatStateUsing(fn(IdentityType $state): string => $state->label())
+                                                ->color(fn(Identity $currentState): string => $currentState->is_primary ? 'info' : 'gray')
+                                                ->icon(fn(Identity $currentState): string => $currentState->is_primary ? 'icon-pin-fill' : '')
+                                                ->tooltip(fn(Identity $currentState): string => $currentState->is_primary ? 'Primary' : 'Alternative')
                                                 ->badge()
                                                 ->alignEnd(),
                                             Infolists\Components\TextEntry::make('issued_at')
@@ -145,8 +150,8 @@ class ViewPatient extends ViewRecord
                                                     ->label('')
                                                     ->placeholder('N/A')
                                                     ->icon($phone->is_primary ? 'icon-mobile-screen' : 'icon-mobile-screen')
-                                                    ->iconColor($phone->is_primary ? 'success' : 'gray')
-                                                    ->hintIconTooltip($phone->is_primary ? 'Primary Phone' : 'Alternative Phone')
+                                                    ->iconColor($phone->is_primary ? 'info' : 'gray')
+                                                    ->tooltip($phone->is_primary ? 'Primary Phone' : 'Alternative Phone')
                                                     ->suffixAction(
                                                         Infolists\Components\Actions\Action::make("edit_{$phone->id}")
                                                             ->label("Edit Patient Phone")
@@ -206,7 +211,7 @@ class ViewPatient extends ViewRecord
                                                     ->default($email->email)
                                                     ->icon($email->is_verified ? 'heroicon-o-envelope' : 'heroicon-o-envelope')
                                                     ->iconColor($email->is_verified ? 'success' : 'gray')
-                                                    ->hintIconTooltip($email->is_verified ? 'Primary Email' : 'Alternative Email')
+                                                    ->tooltip($email->is_verified ? 'Primary Email' : 'Alternative Email')
                                                     ->suffixAction(
                                                         Infolists\Components\Actions\Action::make("edit_{$email->id}")
                                                             ->label("Edit Patient Email")
@@ -233,12 +238,18 @@ class ViewPatient extends ViewRecord
                                         ->placeholder('N/A')
                                         ->grid(2)
                                         ->schema([
-                                            Infolists\Components\TextEntry::make('is_primary')
+                                            // Infolists\Components\TextEntry::make('is_primary')
+                                            //     ->label('')
+                                            //     ->badge()
+                                            //     ->formatStateUsing(fn(int $state): string => $state ? 'Legal' : 'Domicile')
+                                            //     ->tooltip(fn(int $state): string => $state ? 'Legal address' : 'Domicile address')
+                                            //     ->color(fn(int $state): string => $state ? 'success' : 'gray'),
+                                            Infolists\Components\TextEntry::make('address_type')
                                                 ->label('')
                                                 ->badge()
-                                                ->formatStateUsing(fn(int $state): string => $state ? 'Legal' : 'Domicile')
-                                                ->tooltip(fn(int $state): string => $state ? 'Legal address' : 'Domicile address')
-                                                ->color(fn(int $state): string => $state ? 'success' : 'gray'),
+                                                ->formatStateUsing(fn(AddressType $state): string => $state->label())
+                                                ->color(fn(Address $currentState): string => $currentState->is_primary ? 'info' : 'gray')
+                                                ->icon(fn(Address $currentState): string => $currentState->is_primary ? 'icon-pin-fill' : ''),
                                             Infolists\Components\TextEntry::make('address')
                                                 ->label('')
                                                 ->inlineLabel()
@@ -261,22 +272,19 @@ class ViewPatient extends ViewRecord
                                 ]),
                         ]),
                     Infolists\Components\Section::make('Patient Information')
-                        ->columns(2)
                         ->schema([
-                            Infolists\Components\TextEntry::make('patient_id')
-                                ->label('Patient ID'),
-                            Infolists\Components\TextEntry::make('ref_patient_id')
-                                ->label('Ref Patient ID')
+                            Infolists\Components\TextEntry::make('patient_code')
+                                ->label('Patient Code'),
+                            Infolists\Components\TextEntry::make('ref_patient_code')
+                                ->label('Ref Patient Code')
                                 ->placeholder('N/A'),
                             Infolists\Components\TextEntry::make('created_at')
                                 ->dateTime()
-                                ->label('Registered At')
-                                ->columnSpanFull(),
+                                ->label('Registered At'),
                             SpatieTagsEntry::make('tags')
                                 ->label('Tags')
                                 ->iconPosition(IconPosition::Before)
-                                ->placeholder('Add tags...')
-                                ->columnSpanFull(),
+                                ->placeholder('Add tags...'),
                         ])
                         ->grow(false),
                 ])

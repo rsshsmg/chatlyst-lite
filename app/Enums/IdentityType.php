@@ -11,8 +11,9 @@ enum IdentityType: int implements EnumArrayable
 
     case KTP = 1;
     case SIM = 2;
-    case PASSPORT = 3;
-    case OTHER = 4;
+    case STUDENTCARD = 3;
+    case PASSPORT = 4;
+    case OTHER = 99;
 
     public function label(): string
     {
@@ -20,7 +21,8 @@ enum IdentityType: int implements EnumArrayable
             self::KTP => 'KTP',
             self::SIM => 'SIM',
             self::PASSPORT => 'Passport',
-            self::OTHER => 'Lainnya',
+            self::STUDENTCARD => 'Student Card',
+            self::OTHER => 'Other',
         };
     }
 }

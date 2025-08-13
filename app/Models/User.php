@@ -70,21 +70,6 @@ class User extends Authenticatable
         ];
     }
 
-    protected function identities(): HasMany
-    {
-        return $this->hasMany(PatientIdentity::class);
-    }
-
-    protected function addresses(): HasMany
-    {
-        return $this->hasMany(PatientAddress::class);
-    }
-
-    protected function contacts(): HasMany
-    {
-        return $this->hasMany(PatientContact::class);
-    }
-
     protected function guarantors(): HasMany
     {
         return $this->hasMany(PatientGuarantor::class);

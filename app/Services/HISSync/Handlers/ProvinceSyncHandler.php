@@ -6,11 +6,12 @@ use App\Models\District;
 use App\Models\Province;
 use App\Models\Regency;
 use App\Models\SubDistrict;
+use App\Services\HISSync\BaseSyncHandler;
 use App\Services\HISSync\Contracts\SyncHandlerInterface;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
-class ProvinceSyncHandler implements SyncHandlerInterface
+class ProvinceSyncHandler extends BaseSyncHandler
 {
     private $defaultCountryId = 103; // ID Negara Indonesia
     private $batchSize = 100;
@@ -23,6 +24,8 @@ class ProvinceSyncHandler implements SyncHandlerInterface
         $defaultCountryId = $this->defaultCountryId;
 
         return DB::transaction(function () use ($dto, $defaultCountryId) {
+            $this->startTime = microtime(true);
+
             // Simpan atau update provinsi di database
             $province = Province::updateOrCreate(
                 ['code' => $dto->code],
@@ -36,6 +39,8 @@ class ProvinceSyncHandler implements SyncHandlerInterface
 
             // Simpan atau update kabupaten/kota
             $this->syncRegencies($dto->regencies, $province->id);
+
+            $this->endTime = microtime(true);
         });
     }
 

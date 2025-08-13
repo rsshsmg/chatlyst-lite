@@ -2,18 +2,24 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\Gender;
 use App\Filament\Exports\PhoneExporter;
 use App\Filament\Resources\PhoneResource\Pages;
 use App\Filament\Resources\PhoneResource\RelationManagers;
 use App\Models\Phone;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\IconPosition;
 use Filament\Tables;
+use Filament\Tables\Filters\QueryBuilder\Constraints\NumberConstraint;
+use Filament\Tables\Filters\QueryBuilder\Constraints;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\DB;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
 use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
@@ -22,11 +28,13 @@ class PhoneResource extends Resource
 {
     protected static ?string $model = Phone::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-phone';
+    protected static ?string $navigationIcon = 'icon-whatsapp';
+
+    protected static ?string $modelLabel = 'Export Phone Numbers';
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Customers';
+        return 'Interactions';
     }
 
     public static function form(Form $form): Form
@@ -61,6 +69,9 @@ class PhoneResource extends Resource
                 Tables\Columns\TextColumn::make('person.full_name')
                     ->label('Full Name')
                     ->searchable(),
+                // Tables\Columns\TextColumn::make('person.age')
+                //     ->label('Age')
+                //     ->searchable(),
                 Tables\Columns\TextColumn::make('country_code')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -88,7 +99,10 @@ class PhoneResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('tags')
+                    ->searchable()
+                    ->relationship('tags', 'name')
+                    ->multiple(),
             ])
             ->actions([
                 // Tables\Actions\EditAction::make(),
@@ -102,20 +116,22 @@ class PhoneResource extends Resource
             ->headerActions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ExportAction::make()
-                        ->label('Export All (Valid)')
+                        ->label('Export All')
                         ->exporter(PhoneExporter::class)
-                        ->modifyQueryUsing(fn(Builder $query) => $query->where('number', 'REGEXP', '^\\+?[1-9][0-9]{7,14}$')),
-                    Tables\Actions\ExportAction::make()
-                        ->label('Export WhatsApp Only')
-                        ->exporter(PhoneExporter::class)
-                        ->modifyQueryUsing(fn(Builder $query) => $query->whereNotNull('verified_at')->where('is_whatsapp', true)),
+                        ->columnMapping(false),
+                    // Tables\Actions\ExportAction::make()
+                    //     ->label('Export All (Valid)')
+                    //     ->exporter(PhoneExporter::class)
+                    //     ->columnMapping(false)
+                    //     ->modifyQueryUsing(fn(Builder $query) => $query->where('number', 'REGEXP', '^\\+?[1-9][0-9]{7,14}$')),
                 ])
                     ->label('Export')
                     ->button()
                     ->color('gray')
                     ->icon('heroicon-m-chevron-down')
                     ->iconPosition(IconPosition::After),
-            ]);
+            ])
+            ->deferLoading();
     }
 
     public static function getRelations(): array

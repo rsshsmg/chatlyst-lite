@@ -15,7 +15,13 @@ class Email extends Model
     protected $fillable = [
         'person_id',
         'email',
+        'is_primary',
         'verified_at',
+    ];
+
+    protected $casts = [
+        'is_primary' => 'boolean',
+        'verified_at' => 'datetime',
     ];
 
     public function patient(): BelongsTo

@@ -19,8 +19,8 @@ class PatientFactory extends Factory
     public function definition(): array
     {
         return [
-            'patient_id' => $this->faker->numerify('PSH-######'),
-            'ref_patient_id' => ($this->faker->boolean(30)) ? $this->faker->numerify('TSH-######') : null,
+            'patient_code' => $this->faker->numerify('PSH-######'),
+            'ref_patient_code' => ($this->faker->boolean(30)) ? $this->faker->numerify('TSH-######') : null,
             'person_id' => Person::factory()
                 ->hasIdentities(
                     $this->faker->boolean(80) ? 1 : rand(0, 2),

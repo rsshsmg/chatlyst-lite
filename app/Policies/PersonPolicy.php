@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use Spatie\Permission\Models\Permission;
+use App\Models\Person;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PermissionPolicy
+class PersonPolicy
 {
     use HandlesAuthorization;
 
@@ -15,15 +15,15 @@ class PermissionPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_permission');
+        return $user->can('view_any_person');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Permission $permission): bool
+    public function view(User $user, Person $person): bool
     {
-        return $user->can('view_permission');
+        return $user->can('view_person');
     }
 
     /**
@@ -31,23 +31,23 @@ class PermissionPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_permission');
+        return $user->can('create_person');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Permission $permission): bool
+    public function update(User $user, Person $person): bool
     {
-        return $user->can('update_permission');
+        return $user->can('update_person');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Permission $permission): bool
+    public function delete(User $user, Person $person): bool
     {
-        return $user->can('delete_permission');
+        return $user->can('delete_person');
     }
 
     /**
@@ -55,13 +55,13 @@ class PermissionPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_permission');
+        return $user->can('delete_any_person');
     }
 
     /**
      * Determine whether the user can permanently delete.
      */
-    public function forceDelete(User $user, Permission $permission): bool
+    public function forceDelete(User $user, Person $person): bool
     {
         return $user->can('{{ ForceDelete }}');
     }
@@ -77,9 +77,9 @@ class PermissionPolicy
     /**
      * Determine whether the user can restore.
      */
-    public function restore(User $user, Permission $permission): bool
+    public function restore(User $user, Person $person): bool
     {
-        return $user->can('restore_permission');
+        return $user->can('restore_person');
     }
 
     /**
@@ -87,13 +87,13 @@ class PermissionPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_permission');
+        return $user->can('restore_any_person');
     }
 
     /**
      * Determine whether the user can replicate.
      */
-    public function replicate(User $user, Permission $permission): bool
+    public function replicate(User $user, Person $person): bool
     {
         return $user->can('{{ Replicate }}');
     }

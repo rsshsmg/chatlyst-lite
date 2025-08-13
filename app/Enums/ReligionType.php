@@ -10,22 +10,22 @@ enum ReligionType: int implements EnumArrayable
     use EnumArrayableTrait;
 
     case Islam = 1;
-    case Christianity = 2;
-    case Protestan = 3;
-    case Hinduism = 4;
-    case Buddhism = 5;
-    case Konghucu = 6;
+    case Christian = 2;
+    case Catholic = 3;
+    case Hindu = 4;
+    case Buddhist = 5;
+    case Confucian = 6;
     case Other = 7;
 
     public function label(): string
     {
         return match ($this) {
             self::Islam => 'Islam',
-            self::Christianity => 'Christianity',
-            self::Protestan => 'Protestan',
-            self::Hinduism => 'Hinduism',
-            self::Buddhism => 'Buddhism',
-            self::Konghucu => 'Konghucu',
+            self::Christian => 'Christianity',
+            self::Catholic => 'Chatolic',
+            self::Hindu => 'Hinduism',
+            self::Buddhist => 'Buddhism',
+            self::Confucian => 'Confucian',
             self::Other => 'Other',
         };
     }

@@ -9,15 +9,15 @@ enum AddressType: int implements EnumArrayable
 {
     use EnumArrayableTrait;
 
-    case IDENTITY = 1;
+    case RESIDENTIAL = 1;
     case DOMICILE = 2;
     case OFFICE = 3;
-    case OTHER = 4;
+    case OTHER = 99;
 
     public function label(): string
     {
         return match ($this) {
-            self::IDENTITY => 'Identitas',
+            self::RESIDENTIAL => 'Perumahan',
             self::DOMICILE => 'Domisili',
             self::OFFICE => 'Kantor',
             self::OTHER => 'Lainnya',

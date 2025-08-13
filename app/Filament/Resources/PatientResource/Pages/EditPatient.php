@@ -99,7 +99,7 @@ class EditPatient extends EditRecord
 
                                     Section::make('Reference Patient ID')
                                         ->schema([
-                                            Forms\Components\TextInput::make('ref_patient_id')
+                                            Forms\Components\TextInput::make('ref_patient_code')
                                                 ->label('Patient ID')
                                                 ->maxLength(config('patient.patientid_max_length'))
                                                 ->readOnly()
@@ -132,7 +132,7 @@ class EditPatient extends EditRecord
                                                         })
                                                         ->action(function (array $data, Set $set) {
                                                             // Set ke field input
-                                                            $set('ref_patient_id', $data['selected_norm']);
+                                                            $set('ref_patient_code', $data['selected_norm']);
                                                         })
                                                         ->modalHeading('Beberapa data pasien ditemukan di SIMRS')
                                                         ->modalSubmitActionLabel('Gunakan NORM Ini')
@@ -178,7 +178,7 @@ class EditPatient extends EditRecord
                                         Forms\Components\Select::make('address_type')
                                             ->required()
                                             ->options(AddressType::array())
-                                            ->default(AddressType::IDENTITY->value)
+                                            ->default(AddressType::RESIDENTIAL->value)
                                             ->selectablePlaceholder(false),
                                         Forms\Components\TextInput::make('address')
                                             ->required()

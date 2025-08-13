@@ -16,6 +16,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
         "livewire/livewire": "^3.6.4",
+        "mvenghaus/filament-plugin-translatable-inline": "^3.0",
         "tomatophp/filament-users": "^2.0",
         "ysfkaya/filament-phone-input": "^3.2"
     },

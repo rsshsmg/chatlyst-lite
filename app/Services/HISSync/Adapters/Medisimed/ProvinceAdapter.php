@@ -2,15 +2,15 @@
 
 namespace App\Services\HISSync\Adapters\Medisimed;
 
+use App\Services\HISSync\BaseSyncAdapter;
 use App\Services\HISSync\DTO\ProvinceDTO;
 use App\Services\HISSync\DTO\RegencyDTO;
 use App\Services\HISSync\DTO\DistrictDTO;
 use App\Services\HISSync\DTO\SubDistrictDTO;
-use App\Services\HISSync\SyncAdapter;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
-class ProvinceAdapter extends SyncAdapter
+class ProvinceAdapter extends BaseSyncAdapter
 {
     private $defaultCountryId = 103; // ID Negara Indonesia
 

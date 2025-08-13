@@ -16,7 +16,8 @@ class SyncProvinces extends Command
      *
      * @var string
      */
-    protected $signature = 'sync:provinces {--id=}
+    protected $signature = 'sync:province {--all}
+                            {--id= : ID of province to sync}
                             {--force : Force the synchronization even if it has already been done}';
 
     /**
@@ -53,7 +54,8 @@ class SyncProvinces extends Command
 
             return;
         } else {
-            $this->info('No specific ID provided. Synchronizing all provinces...');
+            $this->comment('No specific ID provided. Synchronizing all provinces...');
+            $this->newLine();
 
             if (\App\Models\Province::count() > 0) {
                 if (!$this->option('force')) {
@@ -72,28 +74,6 @@ class SyncProvinces extends Command
             return;
         }
     }
-
-    // protected function truncateTables(?string $provinceId = null): void
-    // {
-    //     if ($provinceId) {
-    //         $province = \App\Models\Province::where('code', $provinceId)->first();
-    //         if (!$province) {
-    //             $this->error("Province with ID {$provinceId} not found.");
-    //             return;
-    //         }
-    //         $id = $province->id;
-    //         \App\Models\SubDistrict::district()->regency()->province()->where('province_id', $id)->delete();
-    //         \App\Models\District::where('province_id', $id)->delete();
-    //         \App\Models\Regency::where('province_id', $id)->delete();
-    //         \App\Models\Province::find($id)->delete();
-    //         return;
-    //     }
-
-    //     \App\Models\SubDistrict::truncate();
-    //     \App\Models\District::truncate();
-    //     \App\Models\Regency::truncate();
-    //     \App\Models\Province::truncate();
-    // }
 
     protected function truncateTables(?string $provinceId = null): void
     {

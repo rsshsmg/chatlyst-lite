@@ -42,7 +42,7 @@ class PatientResource extends Resource
 {
     protected static ?string $model = Patient::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-folder';
+    protected static ?string $navigationIcon = 'icon-hospital-user';
 
     public static function getNavigationGroup(): ?string
     {
@@ -234,7 +234,7 @@ class PatientResource extends Resource
                                     Section::make('Reference Patient ID')
                                         ->schema([
 
-                                            Forms\Components\TextInput::make('ref_patient_id')
+                                            Forms\Components\TextInput::make('ref_patient_code')
                                                 ->label('Patient ID')
                                                 ->maxLength(config('patient.patientid_max_length'))
                                                 ->readOnly()
@@ -267,7 +267,7 @@ class PatientResource extends Resource
                                                         })
                                                         ->action(function (array $data, Set $set) {
                                                             // Set ke field input
-                                                            $set('ref_patient_id', $data['selected_norm']);
+                                                            $set('ref_patient_code', $data['selected_norm']);
                                                         })
                                                         ->modalHeading('Beberapa data pasien ditemukan di SIMRS')
                                                         ->modalSubmitActionLabel('Gunakan NORM Ini')
@@ -314,7 +314,7 @@ class PatientResource extends Resource
                                         Forms\Components\Select::make('address_type')
                                             ->required()
                                             ->options(AddressType::array())
-                                            ->default(AddressType::IDENTITY->value)
+                                            ->default(AddressType::RESIDENTIAL->value)
                                             ->selectablePlaceholder(false),
                                         Forms\Components\TextInput::make('address')
                                             ->required()
@@ -405,26 +405,28 @@ class PatientResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('patient_id')
-                    ->label('Patient ID')
-                    ->description(fn(Patient $record): string => $record->ref_patient_id ?? '-')
-                    ->searchable(['patient_id', 'ref_patient_id']),
+                Tables\Columns\TextColumn::make('patient_code')
+                    ->label('Patient Code')
+                    ->prefix('#')
+                    ->description(fn(Patient $record): string => $record->ref_patient_code ?? '')
+                    ->searchable(['patient_code', 'ref_patient_code']),
                 Tables\Columns\TextColumn::make('person.full_name')
                     ->label('Patient Name')
-                    ->description(fn(Patient $record): string => $record->person->nickname)
+                    ->description(fn(Patient $record): string => $record->person->nickname ?? '')
                     ->searchable(query: function (Builder $query, string $search) {
                         $query->orWhereHas('person', fn($q) => $q->where('full_name', 'like', "%{$search}%")
                             ->orWhere('nickname', 'like', "%{$search}%"));
                     }),
                 Tables\Columns\TextColumn::make('person.gender')
                     ->label('Gender')
-                    ->formatStateUsing(function ($record) {
-                        return $record->person->gender->label() ?? null;
-                    })
-                    ->placeholder('Unknown'),
+                    ->formatStateUsing(fn(Gender $state): string => $state->label())
+                    ->badge()
+                    ->icon(fn(Gender $state): string => $state->icon())
+                    ->color(fn(Gender $state): string => $state->color())
+                    ->placeholder('N/A'),
                 Tables\Columns\TextColumn::make('person.date_of_birth')
                     ->label('Age')
-                    ->suffix(' thn')
+                    ->suffix(' tahun')
                     ->formatStateUsing(function ($record) {
                         return self::calculateAge($record->person->date_of_birth, '%y');
                     })

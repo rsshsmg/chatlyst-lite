@@ -11,16 +11,18 @@ enum MaritalStatus: int implements EnumArrayable
 
     case Single = 1;
     case Married = 2;
-    case Divorced = 3;
-    case Widowed = 4;
+    case Widow = 3;
+    case Widower = 4;
+    case Other = 5;
 
     public function label(): string
     {
         return match ($this) {
             self::Single => 'Single',
             self::Married => 'Married',
-            self::Divorced => 'Divorced',
-            self::Widowed => 'Widowed',
+            self::Widow => 'Widow',
+            self::Widower => 'Widower',
+            self::Other => 'Other',
         };
     }
 }

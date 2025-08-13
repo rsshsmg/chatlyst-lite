@@ -22,8 +22,8 @@ return new class extends Migration
             $table->tinyInteger('blood_type')->nullable();
             $table->tinyInteger('religion')->nullable();
             $table->tinyInteger('marital_status')->nullable();
-            $table->foreignId('education_id')->nullable()->constrained()->restrictOnDelete();
-            $table->foreignId('job_title_id')->nullable()->constrained()->restrictOnDelete();
+            $table->foreignId('education_id')->nullable()->constrained()->noActionOnDelete();
+            $table->foreignId('job_title_id')->nullable()->constrained()->noActionOnDelete();
             $table->char('lang_code', 6)->nullable()->default('id_ID');
             $table->foreignId('ethnicity_code')->nullable();
             $table->boolean('is_foreigner')->default(false);
@@ -46,7 +46,6 @@ return new class extends Migration
             $table->timestamps();
 
             $table->unique(['person_id', 'identity_type', 'number']);
-            $table->unique(['person_id', 'identity_type']);
         });
 
         Schema::create('addresses', function (Blueprint $table) {
@@ -54,8 +53,8 @@ return new class extends Migration
             $table->foreignUuid('person_id')->constrained()->cascadeOnDelete();
             $table->tinyInteger('address_type');
             $table->text('address');
-            $table->foreignId('country_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('subdistrict_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('country_id')->nullable()->constrained()->noActionOnDelete();
+            $table->foreignId('subdistrict_id')->nullable()->constrained()->noActionOnDelete();
             $table->char('country_code', 3)->nullable();
             $table->string('postal_code')->nullable();
             $table->boolean('is_primary')->default(false);
@@ -79,6 +78,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('person_id')->constrained()->cascadeOnDelete();
             $table->string('email');
+            $table->boolean('is_primary')->default(false);
             $table->timestamp('verified_at')->nullable();
             $table->timestamps();
         });

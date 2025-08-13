@@ -6,6 +6,7 @@ use App\Enums\BloodType;
 use App\Enums\Gender;
 use App\Enums\MaritalStatus;
 use App\Enums\ReligionType;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,12 +14,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
+use Spatie\Tags\HasTags;
 
 class Person extends Model
 {
     use HasUuids;
     use SoftDeletes;
     use HasFactory;
+    use HasTags;
 
     protected $fillable = [
         'full_name',
@@ -45,6 +49,18 @@ class Person extends Model
         'religion' => ReligionType::class,
         'marital_status' => MaritalStatus::class,
     ];
+
+    public function getAgeAttribute()
+    {
+        return Carbon::parse($this->date_of_birth)->age;
+    }
+
+    public function scopeWithAge($query)
+    {
+        return $query->addSelect([
+            'age' => DB::raw('TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE())')
+        ]);
+    }
 
     public function patient(): HasOne
     {

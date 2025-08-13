@@ -23,8 +23,8 @@ class Patient extends Model
     use HasUuids, SoftDeletes, HasFactory, HasTags;
 
     protected $fillable = [
-        'ref_patient_id',
-        'tmp_patient_id',
+        'patient_code',
+        'ref_patient_code',
         'person_id',
     ];
 
