@@ -26,22 +26,22 @@ class PersonFactory extends Factory
      */
     public function definition(): array
     {
-        $gender = $this->faker->randomElement(Gender::cases());
+        $gender = fake()->randomElement(Gender::cases());
 
         return [
-            'full_name' => $this->faker->name($gender->name),
-            'nickname' => $this->faker->firstName($gender->name),
+            'full_name' => fake()->name(strtolower($gender->name)),
+            'nickname' => fake()->firstName(strtolower($gender->name)),
             'gender' => $gender->value,
-            'place_of_birth' => $this->faker->city(),
-            'date_of_birth' => $this->faker->dateTimeThisCentury->format('Y-m-d'),
-            'mother_name' => $this->faker->boolean(60) ? $this->faker->name('female') : null,
-            'blood_type' => $this->faker->randomElement(BloodType::cases()) ?? BloodType::BPositive,
-            'religion' => $this->faker->randomElement(ReligionType::cases()) ?? ReligionType::Islam,
-            'marital_status' => $this->faker->randomElement(MaritalStatus::cases()) ?? MaritalStatus::Single,
-            'education_id' => $this->faker->boolean(30) ? Education::inRandomOrder()->first()->id : null,
-            'job_title_id' => $this->faker->boolean(30) ? JobTitle::inRandomOrder()->first()->id : null,
-            'lang_code' => $this->faker->languageCode(),
-            'is_foreigner' => $this->faker->boolean(30),
+            'place_of_birth' => fake()->city(),
+            'date_of_birth' => fake()->dateTimeThisCentury->format('Y-m-d'),
+            'mother_name' => fake()->boolean(60) ? fake()->name('female') : null,
+            'blood_type' => fake()->randomElement(BloodType::cases()) ?? BloodType::BPositive,
+            'religion' => fake()->randomElement(ReligionType::cases()) ?? ReligionType::Islam,
+            'marital_status' => fake()->randomElement(MaritalStatus::cases()) ?? MaritalStatus::Single,
+            'education_id' => fake()->boolean(30) ? Education::factory()->create() : null,
+            'job_title_id' => fake()->boolean(30) ? JobTitle::factory()->create() : null,
+            'lang_code' => fake()->languageCode(),
+            'is_foreigner' => fake()->boolean(30),
         ];
     }
 
@@ -49,8 +49,8 @@ class PersonFactory extends Factory
     {
         return $this->state(function () {
             return [
-                'full_name' => $this->faker->name(),
-                'gender' => $this->faker->randomElement(Gender::cases())->value,
+                'full_name' => fake()->name(),
+                'gender' => fake()->randomElement(Gender::cases())->value,
             ];
         });
     }
@@ -58,22 +58,22 @@ class PersonFactory extends Factory
     public function asPatient(): static
     {
         return $this->state(function () {
-            $gender = $this->faker->randomElement(Gender::cases());
+            $gender = fake()->randomElement(Gender::cases());
 
             return [
-                'full_name' => $this->faker->name($gender->name),
-                'nickname' => $this->faker->firstName($gender->name),
+                'full_name' => fake()->name($gender->label),
+                'nickname' => fake()->firstName($gender->label),
                 'gender' => $gender->value,
-                'place_of_birth' => $this->faker->city(),
-                'date_of_birth' => $this->faker->dateTimeThisCentury->format('Y-m-d'),
-                'mother_name' => $this->faker->boolean(60) ? $this->faker->name('female') : null,
-                'blood_type' => $this->faker->randomElement(BloodType::cases()) ?? BloodType::BPositive,
-                'religion' => $this->faker->randomElement(ReligionType::cases()) ?? ReligionType::Islam,
-                'marital_status' => $this->faker->randomElement(MaritalStatus::cases()) ?? MaritalStatus::Single,
-                'education_id' => $this->faker->boolean(30) ? Education::inRandomOrder()->first()->id : null,
-                'job_title_id' => $this->faker->boolean(30) ? JobTitle::inRandomOrder()->first()->id : null,
-                'lang_code' => $this->faker->languageCode(),
-                'is_foreigner' => $this->faker->boolean(30),
+                'place_of_birth' => fake()->city(),
+                'date_of_birth' => fake()->dateTimeThisCentury->format('Y-m-d'),
+                'mother_name' => fake()->boolean(60) ? fake()->name('female') : null,
+                'blood_type' => fake()->randomElement(BloodType::cases()) ?? BloodType::BPositive,
+                'religion' => fake()->randomElement(ReligionType::cases()) ?? ReligionType::Islam,
+                'marital_status' => fake()->randomElement(MaritalStatus::cases()) ?? MaritalStatus::Single,
+                'education_id' => fake()->boolean(30) ? Education::factory()->create() : null,
+                'job_title_id' => fake()->boolean(30) ? JobTitle::factory()->create() : null,
+                'lang_code' => fake()->languageCode(),
+                'is_foreigner' => fake()->boolean(30),
             ];
         });
     }

@@ -19,10 +19,10 @@ class GuarantorFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->company(),
-            'code' => $this->faker->unique()->bothify('??##?-##?##-####'),
-            'guarantor_type' => $this->faker->randomElement(GuarantorType::class),
-            'description' => $this->faker->sentence(),
+            'name' => fake()->unique()->company(),
+            'code' => fake()->unique()->bothify('??##?-##?##-####'),
+            'guarantor_type' => fake()->randomElement(GuarantorType::class),
+            'description' => fake()->sentence(),
         ];
     }
 }

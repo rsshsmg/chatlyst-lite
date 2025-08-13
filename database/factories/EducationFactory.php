@@ -17,9 +17,9 @@ class EducationFactory extends Factory
     public function definition(): array
     {
         return [
-            'code' => $this->faker->unique()->randomNumber(5),
-            'name' => $this->faker->sentence(1),
-            'description' => $this->faker->text(100),
+            'code' => fake()->unique()->randomNumber(5),
+            'name' => fake()->sentence(1),
+            'description' => fake()->text(100),
         ];
     }
 }

@@ -18,20 +18,20 @@ class ContactFactory extends Factory
      */
     public function definition(): array
     {
-        $type = $this->faker->randomElement(ContactType::cases());
+        $type = fake()->randomElement(ContactType::cases());
         $value = match ($type) {
-            ContactType::Phone => $this->faker->e164PhoneNumber(),
-            ContactType::Email => $this->faker->email(),
-            ContactType::Whatsapp => $this->faker->e164PhoneNumber(),
+            ContactType::Phone => fake()->e164PhoneNumber(),
+            ContactType::Email => fake()->email(),
+            ContactType::Whatsapp => fake()->e164PhoneNumber(),
         };
-        $hasOwner = $this->faker->boolean(80);
+        $hasOwner = fake()->boolean(80);
 
         return [
             'contact_type' => $type,
             'value' => $value,
             'ownerable_id' => $hasOwner ? Patient::factory() : null,
             'ownerable_type' => $hasOwner ? Patient::class : null,
-            'verified_at' => ($this->faker->boolean(60)) ? $this->faker->date() : null,
+            'verified_at' => (fake()->boolean(60)) ? fake()->date() : null,
         ];
     }
 }

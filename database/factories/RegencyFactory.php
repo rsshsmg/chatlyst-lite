@@ -18,8 +18,8 @@ class RegencyFactory extends Factory
     public function definition(): array
     {
         return [
-            'code' => $this->faker->unique()->randomNumber(5),
-            'name' => $this->faker->bothify('Kab. ???????'),
+            'code' => fake()->unique()->randomNumber(5),
+            'name' => fake()->bothify('Kab. ???????'),
             'province_id' => Province::factory(),
             'is_active' => true,
         ];

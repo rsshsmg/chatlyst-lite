@@ -19,11 +19,11 @@ class PhoneFactory extends Factory
     {
         return [
             'person_id' => Person::factory(),
-            'number' => $this->faker->e164PhoneNumber(),
-            'country_code' => $this->faker->countryCode(),
-            'is_whatsapp' => $this->faker->boolean(80),
-            'is_primary' => $this->faker->boolean(70),
-            'verified_at' => $this->faker->boolean(80) ? $this->faker->dateTime() : null,
+            'number' => fake()->e164PhoneNumber(),
+            'country_code' => fake()->countryCode(),
+            'is_whatsapp' => fake()->boolean(80),
+            'is_primary' => fake()->boolean(70),
+            'verified_at' => fake()->boolean(80) ? fake()->dateTime() : null,
         ];
     }
 }

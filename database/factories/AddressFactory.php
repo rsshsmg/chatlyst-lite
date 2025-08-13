@@ -22,13 +22,13 @@ class AddressFactory extends Factory
     {
         return [
             'person_id' => Person::factory(),
-            'address_type' => $this->faker->randomElement(AddressType::cases()),
-            'address' => $this->faker->streetAddress,
-            'subdistrict_id' => Subdistrict::inRandomOrder()->first()->id,
+            'address_type' => fake()->randomElement(AddressType::cases()),
+            'address' => fake()->streetAddress,
+            'subdistrict_id' => Subdistrict::factory(),
             'country_id' => 103,
-            'country_code' => $this->faker->countryCode(),
-            'postal_code' => $this->faker->postcode,
-            'is_primary' => $this->faker->boolean,
+            'country_code' => fake()->countryCode(),
+            'postal_code' => fake()->postcode,
+            'is_primary' => fake()->boolean,
         ];
     }
 }

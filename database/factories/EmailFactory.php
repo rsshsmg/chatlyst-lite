@@ -19,8 +19,8 @@ class EmailFactory extends Factory
     {
         return [
             'person_id' => Person::factory(),
-            'email' => $this->faker->safeEmail(),
-            'verified_at' => $this->faker->boolean(80) ? $this->faker->dateTime() : null,
+            'email' => fake()->safeEmail(),
+            'verified_at' => fake()->boolean(80) ? fake()->dateTime() : null,
         ];
     }
 }

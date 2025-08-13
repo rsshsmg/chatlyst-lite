@@ -20,16 +20,16 @@ class IdentityFactory extends Factory
     public function definition(): array
     {
         // Randomly select from available types
-        $type = $this->faker->randomElement(IdentityType::cases());
+        $type = fake()->randomElement(IdentityType::cases());
 
         return [
             'person_id' => Person::factory(),
             'identity_type' => $type,
             'number' => ($type == IdentityType::KTP) ?
-                $this->faker->unique()->nik() :
-                $this->faker->unique()->numerify('################'),
-            'issued_at' => $this->faker->date(),
-            'is_primary' => $this->faker->boolean(50),
+                fake()->unique()->nik() :
+                fake()->unique()->numerify('################'),
+            'issued_at' => fake()->date(),
+            'is_primary' => fake()->boolean(50),
         ];
     }
 }

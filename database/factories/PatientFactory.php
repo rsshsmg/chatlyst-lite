@@ -19,11 +19,11 @@ class PatientFactory extends Factory
     public function definition(): array
     {
         return [
-            'patient_code' => $this->faker->numerify('PSH-######'),
-            'ref_patient_code' => ($this->faker->boolean(30)) ? $this->faker->numerify('TSH-######') : null,
+            'patient_code' => fake()->numerify('PSH-######'),
+            'ref_patient_code' => (fake()->boolean(30)) ? fake()->numerify('TSH-######') : null,
             'person_id' => Person::factory()
                 ->hasIdentities(
-                    $this->faker->boolean(80) ? 1 : rand(0, 2),
+                    fake()->boolean(80) ? 1 : rand(0, 2),
                     function (array $attributes, Person $person) {
                         // Cari identity_type yang belum digunakan
                         $availableTypes = collect(IdentityType::cases())
@@ -44,9 +44,9 @@ class PatientFactory extends Factory
                         ];
                     }
                 )
-                ->hasPhones($this->faker->boolean(80) ? 1 : rand(0, 2))
-                ->hasEmails($this->faker->boolean(80) ? 1 : 0)
-                ->hasAddresses($this->faker->boolean(90) ? 1 : rand(0, 3))
+                ->hasPhones(fake()->boolean(80) ? 1 : rand(0, 2))
+                ->hasEmails(fake()->boolean(80) ? 1 : 0)
+                ->hasAddresses(fake()->boolean(90) ? 1 : rand(0, 3))
                 ->create(),
         ];
     }

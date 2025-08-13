@@ -18,8 +18,8 @@ class DistrictFactory extends Factory
     public function definition(): array
     {
         return [
-            'code' => $this->faker->unique()->randomNumber(5),
-            'name' => $this->faker->bothify('Kec. ??????'),
+            'code' => fake()->unique()->randomNumber(5),
+            'name' => fake()->bothify('Kec. ??????'),
             'regency_id' => Regency::factory(),
             'is_active' => true,
         ];

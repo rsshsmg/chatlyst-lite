@@ -18,8 +18,8 @@ class ProvinceFactory extends Factory
     public function definition(): array
     {
         return [
-            'code' => $this->faker->unique()->randomNumber(2),
-            'name' => $this->faker->bothify('Province ??????'),
+            'code' => fake()->unique()->randomNumber(2),
+            'name' => fake()->bothify('Province ??????'),
             'country_id' => 103,
             'is_active' => true,
         ];

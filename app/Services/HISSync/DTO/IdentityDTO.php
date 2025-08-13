@@ -2,6 +2,7 @@
 
 namespace App\Services\HISSync\DTO;
 
+use App\Enums\IdentityType;
 use DateTime;
 
 class IdentityDTO
@@ -10,7 +11,7 @@ class IdentityDTO
         public ?string $personId,
         public string $number,
         public string $countryCode = 'ID',
-        public ?string $identityType = null,
+        public ?IdentityType $identityType = null,
         public ?DateTime $issuedAt = null,
         public ?DateTime $expiredAt = null,
         public ?string $imageId = null,

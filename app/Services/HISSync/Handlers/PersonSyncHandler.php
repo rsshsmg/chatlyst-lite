@@ -63,16 +63,16 @@ class PersonSyncHandler extends BaseSyncHandler
             // $this->processAddresses($person, $dto->addresses);
 
             // Process identities
-            $this->hasIdentities($dto->identities);
+            $this->syncIdentities($dto->identities);
 
             // Process phones
-            $this->hasPhones($dto->phones);
+            $this->syncPhones($dto->phones);
 
             // Process emails
-            $this->hasEmails($dto->emails);
+            $this->syncEmails($dto->emails);
 
             // Process addresses
-            $this->hasAddresses($dto->addresses);
+            $this->syncAddresses($dto->addresses);
 
             $this->endTime = microtime(true);
 

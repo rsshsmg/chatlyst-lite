@@ -2,11 +2,13 @@
 
 namespace App\Services\HISSync\DTO;
 
+use App\Enums\AddressType;
+
 class AddressDTO
 {
     public function __construct(
         public ?string $personId,
-        public int $addressType,
+        public AddressType $addressType,
         public string $address,
         public ?int $countryId = null,
         public ?int $subDistrictId = null,

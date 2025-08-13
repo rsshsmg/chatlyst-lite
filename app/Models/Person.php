@@ -43,7 +43,7 @@ class Person extends Model
     ];
 
     protected $casts = [
-        'date_of_birth' => 'date',
+        'date_of_birth' => 'date:Y-m-d',
         'gender' => Gender::class,
         'blood_type' => BloodType::class,
         'religion' => ReligionType::class,

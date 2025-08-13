@@ -21,7 +21,7 @@ class PatientGuardianFactory extends Factory
     public function definition(): array
     {
         return [
-            'relation_type' => $this->faker->randomElement(RelationType::cases()),
+            'relation_type' => fake()->randomElement(RelationType::cases()),
             'person_id' => Person::factory(),
             'patient_id' => Patient::factory(),
         ];

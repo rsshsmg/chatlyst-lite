@@ -16,15 +16,15 @@ class PatientGuarantorFactory extends Factory
      */
     public function definition(): array
     {
-        $hasValidDate = $this->faker->boolean(0.5);
+        $hasValidDate = fake()->boolean(0.5);
 
         return [
             'patient_id' => \App\Models\Patient::factory(),
             'guarantor_id' => \App\Models\Guarantor::factory(),
-            'member_number' => $this->faker->unique()->bothify('???-#######'),
-            'is_primary' => $this->faker->boolean(80),
-            'valid_from' => ($hasValidDate) ? $this->faker->date() : null,
-            'valid_to' => ($hasValidDate) ? $this->faker->date() : null,
+            'member_number' => fake()->unique()->bothify('???-#######'),
+            'is_primary' => fake()->boolean(80),
+            'valid_from' => ($hasValidDate) ? fake()->date() : null,
+            'valid_to' => ($hasValidDate) ? fake()->date() : null,
         ];
     }
 }

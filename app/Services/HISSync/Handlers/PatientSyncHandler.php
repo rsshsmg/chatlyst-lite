@@ -63,16 +63,16 @@ class PatientSyncHandler extends BaseSyncHandler
             // $this->processAddresses($person, $dto->person->addresses);
 
             // Process identities
-            $this->hasIdentities($dto->person->identities);
+            $this->syncIdentities($dto->person->identities);
 
             // Process phones
-            $this->hasPhones($dto->person->phones);
+            $this->syncPhones($dto->person->phones);
 
             // Process emails
-            $this->hasEmails($dto->person->emails);
+            $this->syncEmails($dto->person->emails);
 
             // Process addresses
-            $this->hasAddresses($dto->person->addresses);
+            $this->syncAddresses($dto->person->addresses);
 
             // Create or update patient
             $patient = Patient::updateOrCreate(
