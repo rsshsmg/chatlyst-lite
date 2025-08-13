@@ -7,12 +7,14 @@ use App\Filament\Exports\PhoneExporter;
 use App\Filament\Resources\PhoneResource\Pages;
 use App\Filament\Resources\PhoneResource\RelationManagers;
 use App\Models\Phone;
+use App\Models\Tag;
 use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\IconPosition;
 use Filament\Tables;
+use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\QueryBuilder\Constraints\NumberConstraint;
 use Filament\Tables\Filters\QueryBuilder\Constraints;
 use Filament\Tables\Filters\SelectFilter;
@@ -99,11 +101,34 @@ class PhoneResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                SelectFilter::make('tags')
-                    ->searchable()
-                    ->relationship('tags', 'name')
-                    ->multiple(),
-            ])
+                SelectFilter::make('tag')
+                    ->multiple()
+                    ->options(function () {
+                        return Tag::orderBy('name')->limit(15)->pluck('name', 'id');
+                    })
+                    ->getSearchResultsUsing(function (string $search) {
+                        return Tag::where('name', 'like', "%{$search}%")
+                            ->limit(50)
+                            ->pluck('name', 'id');
+                    })
+                    ->query(function ($query, $data) {
+                        $tagIds = $data['values'] ?? [];
+                        if (empty($tagIds)) {
+                            return $query;
+                        }
+
+                        return $query->where(function ($query) use ($tagIds) {
+                            $query
+                                ->whereHas('person.patient.tags', function ($q) use ($tagIds) {
+                                    $q->whereIn('tags.id', $tagIds);
+                                })
+                                ->orWhereHas('person.tags', function ($q) use ($tagIds) {
+                                    $q->whereIn('tags.id', $tagIds);
+                                });
+                        });
+                    })
+                    ->columnSpanFull()
+            ], layout: FiltersLayout::AboveContent)
             ->actions([
                 // Tables\Actions\EditAction::make(),
             ])

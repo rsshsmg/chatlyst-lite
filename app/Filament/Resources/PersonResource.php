@@ -24,6 +24,8 @@ class PersonResource extends Resource
 
     protected static ?string $navigationIcon = 'icon-person-bounding-box';
 
+    protected static ?string $modelLabel = 'Profile';
+
     public static function getNavigationGroup(): ?string
     {
         return 'Customers';
@@ -86,6 +88,10 @@ class PersonResource extends Resource
                     ->color(fn(Gender $state): string => $state->color()),
                 Tables\Columns\TextColumn::make('age')
                     ->suffix(' tahun'),
+                Tables\Columns\TextColumn::make('tags.name')
+                    ->badge()
+                    ->separator(',')
+                    ->limitList(3),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
