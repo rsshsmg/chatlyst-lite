@@ -67,6 +67,22 @@ class PhoneResource extends Resource
                 PhoneColumn::make('number')
                     ->displayFormat(PhoneInputNumberType::E164)
                     ->countryColumn('country_code')
+                    ->icon(fn(string $state, Phone $record): string => match (phone($state, $record->country_code)->isValid()) {
+                        true => 'heroicon-o-check-circle',
+                        false => 'heroicon-o-exclamation-triangle',
+                    })
+                    ->iconColor(fn(string $state, Phone $record): string => match (phone($state, $record->country_code)->isValid()) {
+                        true => 'success',
+                        false => 'warning',
+                    })
+                    ->color(fn(string $state, Phone $record): string => match (phone($state, $record->country_code)->isValid()) {
+                        true => '',
+                        false => 'warning',
+                    })
+                    ->tooltip(fn(string $state, Phone $record): string => match (phone($state, $record->country_code)->isValid()) {
+                        true => '',
+                        false => 'Invalid phone number',
+                    })
                     ->searchable(),
                 Tables\Columns\TextColumn::make('person.full_name')
                     ->label('Full Name')
@@ -77,20 +93,28 @@ class PhoneResource extends Resource
                 Tables\Columns\TextColumn::make('country_code')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\IconColumn::make('is_whatsapp')
-                    ->label('Channel')
-                    ->boolean()
-                    ->tooltip(fn($state): string => match ($state) {
-                        true => 'WhatsApp available',
-                        false => 'Phone/SMS only',
-                    })
-                    ->trueIcon('icon-whatsapp')
-                    ->trueColor('success')
-                    ->falseIcon('icon-mobile-screen')
-                    ->falseColor('gray'),
+                Tables\Columns\TextColumn::make('person.gender')
+                    ->label('Gender')
+                    ->formatStateUsing(fn(Gender $state): string => $state->label())
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('person.age')
+                    ->label('Age (years)')
+                    ->searchable(),
+                // Tables\Columns\IconColumn::make('is_whatsapp')
+                //     ->label('Channel')
+                //     ->boolean()
+                //     ->tooltip(fn($state): string => match ($state) {
+                //         true => 'WhatsApp available',
+                //         false => 'Phone/SMS only',
+                //     })
+                //     ->trueIcon('icon-whatsapp')
+                //     ->trueColor('success')
+                //     ->falseIcon('icon-mobile-screen')
+                //     ->falseColor('gray'),
                 Tables\Columns\IconColumn::make('is_verified')
                     ->label('Verified')
-                    ->boolean(),
+                    ->boolean()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -101,33 +125,46 @@ class PhoneResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                SelectFilter::make('tag')
-                    ->multiple()
-                    ->options(function () {
-                        return Tag::orderBy('name')->limit(15)->pluck('name', 'id');
-                    })
-                    ->getSearchResultsUsing(function (string $search) {
-                        return Tag::where('name', 'like', "%{$search}%")
-                            ->limit(50)
-                            ->pluck('name', 'id');
-                    })
+                // SelectFilter::make('tag')
+                //     ->multiple()
+                //     ->options(function () {
+                //         return Tag::orderBy('name')->limit(15)->pluck('name', 'id');
+                //     })
+                //     ->getSearchResultsUsing(function (string $search) {
+                //         return Tag::where('name', 'like', "%{$search}%")
+                //             ->limit(50)
+                //             ->pluck('name', 'id');
+                //     })
+                //     ->query(function ($query, $data) {
+                //         $tagIds = $data['values'] ?? [];
+                //         if (empty($tagIds)) {
+                //             return $query;
+                //         }
+
+                //         return $query->where(function ($query) use ($tagIds) {
+                //             $query
+                //                 ->whereHas('person.patient.tags', function ($q) use ($tagIds) {
+                //                     $q->whereIn('tags.id', $tagIds);
+                //                 })
+                //                 ->orWhereHas('person.tags', function ($q) use ($tagIds) {
+                //                     $q->whereIn('tags.id', $tagIds);
+                //                 });
+                //         });
+                //     })
+                //     ->columnSpanFull(),
+                SelectFilter::make('person.gender')
+                    ->label('Gender')
+                    ->options(Gender::array())
                     ->query(function ($query, $data) {
-                        $tagIds = $data['values'] ?? [];
-                        if (empty($tagIds)) {
+                        $gender = $data['value'] ?? [];
+
+                        if (empty($gender)) {
                             return $query;
                         }
-
-                        return $query->where(function ($query) use ($tagIds) {
-                            $query
-                                ->whereHas('person.patient.tags', function ($q) use ($tagIds) {
-                                    $q->whereIn('tags.id', $tagIds);
-                                })
-                                ->orWhereHas('person.tags', function ($q) use ($tagIds) {
-                                    $q->whereIn('tags.id', $tagIds);
-                                });
+                        return $query->whereHas('person', function ($q) use ($gender) {
+                            $q->where('gender', $gender);
                         });
                     })
-                    ->columnSpanFull()
             ], layout: FiltersLayout::AboveContent)
             ->actions([
                 // Tables\Actions\EditAction::make(),
@@ -140,15 +177,15 @@ class PhoneResource extends Resource
             ])
             ->headerActions([
                 Tables\Actions\ActionGroup::make([
-                    Tables\Actions\ExportAction::make()
-                        ->label('Export All')
-                        ->exporter(PhoneExporter::class)
-                        ->columnMapping(false),
                     // Tables\Actions\ExportAction::make()
-                    //     ->label('Export All (Valid)')
+                    //     ->label('Export All')
                     //     ->exporter(PhoneExporter::class)
-                    //     ->columnMapping(false)
-                    //     ->modifyQueryUsing(fn(Builder $query) => $query->where('number', 'REGEXP', '^\\+?[1-9][0-9]{7,14}$')),
+                    //     ->columnMapping(false),
+                    Tables\Actions\ExportAction::make()
+                        ->label('Export All (Valid only)')
+                        ->exporter(PhoneExporter::class)
+                        ->columnMapping(false)
+                        ->modifyQueryUsing(fn(Builder $query) => $query->where('number', 'REGEXP', '^\\+?[1-9][0-9]{7,14}$')),
                 ])
                     ->label('Export')
                     ->button()
