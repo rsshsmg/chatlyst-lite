@@ -86,7 +86,7 @@ class PatientAdapter extends BaseSyncAdapter
             $identities = [
                 new IdentityDTO(
                     personId: null, // Will be set later when saving
-                    identityType: $this->mapIdentityType($row->TANDA_PENGENAL)->value,
+                    identityType: $this->mapIdentityType($row->TANDA_PENGENAL),
                     number: $row->NO_PENGENAL,
                     issuedAt: null,
                     expiredAt: null,
@@ -134,7 +134,7 @@ class PatientAdapter extends BaseSyncAdapter
         if (!empty($row->ALAMAT) && $row->ALAMAT !== '-') {
             $addresses[] = new AddressDTO(
                 personId: null,
-                addressType: AddressType::RESIDENTIAL->value,
+                addressType: AddressType::RESIDENTIAL,
                 address: $row->ALAMAT,
                 countryId: $row->WNI ? 103 : 103,
                 countryCode: $row->WNI ? 'ID' : null,
@@ -151,9 +151,9 @@ class PatientAdapter extends BaseSyncAdapter
             birthPlace: $row->TEMPAT_LAHIR,
             birthDate: $row->TGL_LAHIR,
             motherName: null,
-            bloodType: $this->mapBloodType($row->GOL_DARAH)->value,
-            religion: $this->mapReligion($row->AGAMA)->value,
-            maritalStatus: $this->mapMaritalStatus($row->STATUS_MARITA)->value,
+            bloodType: $this->mapBloodType($row->GOL_DARAH),
+            religion: $this->mapReligion($row->AGAMA),
+            maritalStatus: $this->mapMaritalStatus($row->STATUS_MARITA),
             educationId: $this->mapEducation($row->KD_PENDIDIKAN),
             jobTitleId: $this->mapJobTitle($row->KD_PEKERJAAN),
             langCode: $this->mapLangCode($row->BAHASA),
@@ -203,7 +203,7 @@ class PatientAdapter extends BaseSyncAdapter
             if (!empty($guardian->NIK) && $guardian->NIK == '-') {
                 $guardIdentities[] = new IdentityDTO(
                     personId: null, // Will be set later when saving
-                    identityType: IdentityType::KTP->value,
+                    identityType: IdentityType::KTP,
                     number: $guardian->NIK,
                     issuedAt: null,
                     expiredAt: null,
@@ -217,7 +217,7 @@ class PatientAdapter extends BaseSyncAdapter
             if (!empty($guardian->ALAMAT) && $guardian->ALAMAT !== '-') {
                 $guardAddresses[] = new AddressDTO(
                     personId: null,
-                    addressType: AddressType::RESIDENTIAL->value,
+                    addressType: AddressType::RESIDENTIAL,
                     address: $guardian->ALAMAT . ', ' . $guardian->KOTA,
                     countryId: 103,
                     countryCode: 'ID',
