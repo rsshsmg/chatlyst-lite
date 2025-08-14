@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use libphonenumber\NumberParseException;
+use libphonenumber\PhoneNumberFormat;
+use libphonenumber\PhoneNumberUtil;
 
 class Phone extends Model
 {
@@ -47,5 +50,21 @@ class Phone extends Model
         return Attribute::make(
             get: fn() => preg_match('/^\+?[1-9]\d{7,14}$/', $this->number) ? true : false,
         );
+    }
+
+    // Mutator untuk auto-convert ke E.164
+    public function setNumberAttribute($value)
+    {
+        if (! empty($value) && ! empty($this->country_code)) {
+            $phoneUtil = PhoneNumberUtil::getInstance();
+            try {
+                $parsedNumber = $phoneUtil->parse($value, $this->country_code);
+                $value = $phoneUtil->format($parsedNumber, PhoneNumberFormat::E164);
+            } catch (NumberParseException $e) {
+                // Biarkan nilai asli jika parsing gagal
+            }
+        }
+
+        $this->attributes['number'] = $value;
     }
 }
