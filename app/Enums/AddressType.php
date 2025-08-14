@@ -17,7 +17,7 @@ enum AddressType: int implements EnumArrayable
     public function label(): string
     {
         return match ($this) {
-            self::RESIDENTIAL => 'Perumahan',
+            self::RESIDENTIAL => 'Tempat Tinggal',
             self::DOMICILE => 'Domisili',
             self::OFFICE => 'Kantor',
             self::OTHER => 'Lainnya',
