@@ -135,23 +135,30 @@ class ViewPatient extends ViewRecord
                                         ->aside()
                                         ->schema(function ($record) {
                                             return $record->person->phones->map(function ($phone) {
+                                                $isValid = phone($phone->number, $phone->country_code)->isValid();
+
+                                                $isValidTooltip = ($isValid) ? null : 'Invalid phone number';
+                                                $isValidColor = ($isValid) ? null : 'warning';
+                                                $isPrimaryTooltip = ($phone->is_primary) ? 'Primary Phone' : null;
+                                                $isPrimaryIcon = $phone->is_primary ? 'heroicon-s-square-2-stack' : 'heroicon-o-square-2-stack';
+
+                                                $info = [$isPrimaryTooltip, $isValidTooltip];
+
+                                                $tooltip = (count(array_filter($info)) > 1) ? implode(' - ', $info) : $info[0];
+
                                                 return PhoneEntry::make("phone_{$phone->id}")
                                                     ->state($phone->number)
                                                     ->countryColumn('country_code')
-                                                    // ->defaultCountry($phone->country_code)
-                                                    // ->displayFormat(PhoneInputNumberType::E164)
-                                                    // ->formatStateUsing(function (string $state) use ($phone) {
-                                                    //     return phone(
-                                                    //         number: $state,
-                                                    //         country: $phone->country_code,
-                                                    //         format: PhoneInputNumberType::E164->toLibPhoneNumberFormat()
-                                                    //     );
+                                                    ->hiddenLabel()
+                                                    // ->icon(fn(string $state, Phone $record): string => match (phone($state, $record->country_code)->isValid()) {
+                                                    //     true => 'heroicon-o-check-circle',
+                                                    //     false => 'heroicon-o-exclamation-triangle',
                                                     // })
-                                                    ->label('')
+                                                    ->color($isValidColor)
                                                     ->placeholder('N/A')
-                                                    ->icon($phone->is_primary ? 'icon-mobile-screen' : 'icon-mobile-screen')
+                                                    ->icon($isPrimaryIcon)
                                                     ->iconColor($phone->is_primary ? 'info' : 'gray')
-                                                    ->tooltip($phone->is_primary ? 'Primary Phone' : 'Alternative Phone')
+                                                    ->tooltip($tooltip)
                                                     ->suffixAction(
                                                         Infolists\Components\Actions\Action::make("edit_{$phone->id}")
                                                             ->label("Edit Patient Phone")
