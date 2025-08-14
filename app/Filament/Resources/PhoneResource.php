@@ -21,6 +21,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Facades\DB;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
@@ -99,7 +100,18 @@ class PhoneResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('person.age')
                     ->label('Age (years)')
-                    ->searchable(),
+                    ->searchable(query: function (Builder $query, string $search): Builder {
+                        if (!is_numeric($search)) {
+                            return $query; // kalau input bukan angka, skip
+                        }
+
+                        $search = (int) $search;
+                        $searchDate = Carbon::now()->subYears($search)->format('Y-m-d');
+
+                        return $query->whereHas('person', function (Builder $subquery) use ($searchDate) {
+                            $subquery->whereDate('date_of_birth', $searchDate);
+                        });
+                    }),
                 // Tables\Columns\IconColumn::make('is_whatsapp')
                 //     ->label('Channel')
                 //     ->boolean()
