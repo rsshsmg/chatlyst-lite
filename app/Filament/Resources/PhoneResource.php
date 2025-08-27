@@ -10,11 +10,13 @@ use App\Models\Phone;
 use App\Models\Tag;
 use Carbon\Carbon;
 use Filament\Forms;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\IconPosition;
 use Filament\Tables;
 use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\QueryBuilder\Constraints\NumberConstraint;
 use Filament\Tables\Filters\QueryBuilder\Constraints;
 use Filament\Tables\Filters\SelectFilter;
@@ -176,8 +178,84 @@ class PhoneResource extends Resource
                         return $query->whereHas('person', function ($q) use ($gender) {
                             $q->where('gender', $gender);
                         });
+                    }),
+                Filter::make('age')
+                    ->form([
+                        Forms\Components\Select::make('operator')
+                            ->options([
+                                '=' => '=',
+                                '>' => '>',
+                                '<' => '<',
+                                'range' => 'Range',
+                            ])
+                            ->required()
+                            ->label('Operator'),
+
+                        Forms\Components\TextInput::make('age')
+                            ->numeric()
+                            ->minValue(0)
+                            ->maxValue(120)
+                            ->label('From'),
+
+                        Forms\Components\TextInput::make('max_age')
+                            ->numeric()
+                            ->minValue(0)
+                            ->maxValue(120)
+                            ->label('To')
+                            ->visible(fn($get) => $get('operator') === 'range'),
+                    ])
+                    ->columns(3)
+                    ->query(function ($query, array $data) {
+                        if (empty($data['operator']) || empty($data['age'])) {
+                            return $query;
+                        }
+
+                        $operator = $data['operator'];
+                        $age = (int) $data['age'];
+
+                        return $query->whereHas('person', function ($personQuery) use ($operator, $age, $data) {
+                            $now = Carbon::now();
+
+                            if ($operator === '=') {
+                                // Exact age
+                                $personQuery->whereBetween('date_of_birth', [
+                                    $now->copy()->subYears($age)->startOfYear(),
+                                    $now->copy()->subYears($age)->endOfYear(),
+                                ]);
+                            }
+
+                            if ($operator === '>') {
+                                // Older than input age
+                                $personQuery->whereDate('date_of_birth', '<=', $now->copy()->subYears($age));
+                            }
+
+                            if ($operator === '<') {
+                                // Younger than input age
+                                $personQuery->whereDate('date_of_birth', '>=', $now->copy()->subYears($age));
+                            }
+
+                            if ($operator === 'range' && !empty($data['max_age'])) {
+                                $maxAge = (int) $data['max_age'];
+
+                                // Between min and max age range
+                                $personQuery->whereBetween('date_of_birth', [
+                                    $now->copy()->subYears($maxAge)->startOfDay(),
+                                    $now->copy()->subYears($age)->endOfDay(),
+                                ]);
+                            }
+                        });
                     })
+                    ->columnSpan(2),
             ], layout: FiltersLayout::AboveContent)
+            ->filtersFormSchema(fn(array $filters): array => [
+                $filters['person.gender'],
+                Fieldset::make('Age (years)')
+                    ->schema([
+                        $filters['age'],
+                    ])
+                    ->columns(2)
+                    ->columnSpanFull(),
+            ])
             ->actions([
                 // Tables\Actions\EditAction::make(),
             ])
@@ -201,7 +279,8 @@ class PhoneResource extends Resource
                 ])
                     ->label('Export')
                     ->button()
-                    ->color('gray')
+                    ->outlined()
+                    ->color('emerald')
                     ->icon('heroicon-m-chevron-down')
                     ->iconPosition(IconPosition::After),
             ])

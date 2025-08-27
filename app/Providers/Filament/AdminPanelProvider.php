@@ -30,7 +30,8 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->colors(array_merge(
                 [
-                    'primary' => Color::Amber,
+                    'primary' => Color::Sky,
+                    'secondary' => Color::Emerald,
                 ],
                 Color::all()
             ))
