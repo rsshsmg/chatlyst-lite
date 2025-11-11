@@ -3,10 +3,13 @@
 namespace App\Console\Commands;
 
 use App\Models\JobTitle;
+use App\Traits\HasConsoleResult;
 use Illuminate\Console\Command;
 
 class SyncJobTitle extends Command
 {
+    use HasConsoleResult;
+
     /**
      * The name and signature of the console command.
      *
@@ -45,7 +48,8 @@ class SyncJobTitle extends Command
             }
 
             $this->info("Starting synchronization of Job Title with ID {$externalId}...");
-            $service->syncById($externalId);
+            $result = $service->syncById($externalId);
+            // $this->displaySyncResults($result);
             $this->info("Synchronization of Job Title with ID {$externalId} completed successfully. (Execution time: {$service->getExecutionTime()} seconds)");
 
             return;
@@ -65,8 +69,9 @@ class SyncJobTitle extends Command
             }
 
             $this->info('Starting synchronization of all Job Titles...');
-            $service->syncAll();
-            $this->info("Synchronization of all Job Titles completed successfully. (Execution time: {$service->getExecutionTime()} seconds)");
+            $result = $service->syncAll();
+            $this->displaySyncResults($result);
+            // $this->info("Synchronization of all Job Titles completed successfully. (Execution time: {$service->getExecutionTime()} seconds)");
             return;
         }
     }

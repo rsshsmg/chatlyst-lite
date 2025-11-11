@@ -6,11 +6,14 @@ use App\Models\District;
 use App\Models\Province;
 use App\Models\Regency;
 use App\Models\SubDistrict;
+use App\Traits\HasConsoleResult;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
 class SyncProvinces extends Command
 {
+    use HasConsoleResult;
+
     /**
      * The name and signature of the console command.
      *
@@ -49,7 +52,8 @@ class SyncProvinces extends Command
             }
 
             $this->info("Starting synchronization of province with ID {$externalId}...");
-            $service->syncById($externalId);
+            $result = $service->syncById($externalId);
+            $this->displaySyncResults($result);
             $this->info("Synchronization of province with ID {$externalId} completed successfully. (Execution time: {$service->getExecutionTime()} seconds)");
 
             return;
@@ -69,7 +73,8 @@ class SyncProvinces extends Command
             }
 
             $this->info('Starting synchronization of all provinces...');
-            $service->syncAll();
+            $result = $service->syncAll();
+            $this->displaySyncResults($result);
             $this->info("Synchronization of all provinces completed successfully. (Execution time: {$service->getExecutionTime()} seconds)");
             return;
         }

@@ -3,10 +3,13 @@
 namespace App\Console\Commands;
 
 use App\Models\Education;
+use App\Traits\HasConsoleResult;
 use Illuminate\Console\Command;
 
 class SyncEducation extends Command
 {
+    use HasConsoleResult;
+
     /**
      * The name and signature of the console command.
      *
@@ -45,7 +48,8 @@ class SyncEducation extends Command
             }
 
             $this->info("Starting synchronization of education with ID {$externalId}...");
-            $service->syncById($externalId);
+            $result = $service->syncById($externalId);
+            // $this->displaySyncResults($result);
             $this->info("Synchronization of education with ID {$externalId} completed successfully. (Execution time: {$service->getExecutionTime()} seconds)");
 
             return;
@@ -65,7 +69,8 @@ class SyncEducation extends Command
             }
 
             $this->info('Starting synchronization of all educations...');
-            $service->syncAll();
+            $result = $service->syncAll();
+            $this->displaySyncResults($result);
             $this->info("Synchronization of all educations completed successfully. (Execution time: {$service->getExecutionTime()} seconds)");
             return;
         }
