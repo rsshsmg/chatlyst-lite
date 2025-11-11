@@ -87,7 +87,8 @@ class PersonResource extends Resource
                     ->icon(fn(Gender $state): string => $state->icon())
                     ->color(fn(Gender $state): string => $state->color()),
                 Tables\Columns\TextColumn::make('age')
-                    ->suffix(' tahun'),
+                    ->suffix(' tahun')
+                    ->placeholder('N/A'),
                 Tables\Columns\TextColumn::make('tags.name')
                     ->badge()
                     ->separator(',')

@@ -14,14 +14,18 @@ class EditPerson extends EditRecord
     {
         return [
             Actions\DeleteAction::make(),
-            Actions\Action::make('sync')->label('Sync SIMRS')->icon('heroicon-o-arrow-path')
+            Actions\Action::make('sync')
+                ->label('Sync Person')
+                ->icon('heroicon-o-arrow-path')
+                ->tooltip('Sync patient data with SIMRS')
                 ->action(function () {
                     // Logic to sync with SIMRS
                     // This could be a call to a service that handles the synchronization
                     // For example: app('simrs.sync')->syncPatients();
                 })
                 ->requiresConfirmation()
-                ->color('gray'),
+                ->outlined()
+                ->color('emerald'),
         ];
     }
 }

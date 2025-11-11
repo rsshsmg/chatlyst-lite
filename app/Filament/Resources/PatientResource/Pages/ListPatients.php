@@ -21,7 +21,8 @@ class ListPatients extends ListRecords
                     // For example: app('simrs.sync')->syncPatients();
                 })
                 ->requiresConfirmation()
-                ->color('gray'),
+                ->outlined()
+                ->color('emerald'),
         ];
     }
 }

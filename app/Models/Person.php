@@ -52,7 +52,7 @@ class Person extends Model
 
     public function getAgeAttribute()
     {
-        return Carbon::parse($this->date_of_birth)->age;
+        return ($this->date_of_birth) ? Carbon::parse($this->date_of_birth)->age : null;
     }
 
     public function scopeWithAge($query)
