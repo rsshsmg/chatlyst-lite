@@ -10,7 +10,7 @@ enum DayOfWeek: string
     case THURSDAY = 'Thursday';
     case FRIDAY = 'Friday';
     case SATURDAY = 'Saturday';
-    case SUNDAY = 'Sunday';
+    // case SUNDAY = 'Sunday';
 
     public function label(): string
     {
@@ -21,7 +21,7 @@ enum DayOfWeek: string
             self::THURSDAY => 'Kamis',
             self::FRIDAY => 'Jumat',
             self::SATURDAY => 'Sabtu',
-            self::SUNDAY => 'Minggu',
+            // self::SUNDAY => 'Minggu',
         };
     }
 
