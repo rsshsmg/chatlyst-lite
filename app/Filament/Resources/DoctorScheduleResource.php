@@ -25,74 +25,94 @@ class DoctorScheduleResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Forms\Components\Select::make('doctor_id')->label('Doctor')->options(Doctor::all()->pluck('name', 'id'))->required(),
-            Forms\Components\Select::make('day_of_week')
-                ->options(\App\Enums\DayOfWeek::options())
+            Forms\Components\Select::make('doctor_id')->label('Doctor')
+                // ->options(Doctor::all()->pluck('name', 'id'))
+                ->relationship('doctor', 'name')
+                ->searchable()
+                ->preload()
                 ->required(),
-            Forms\Components\TimePicker::make('start_time')
-                ->required()
-                ->minutesStep(15)
-                ->datalist([
-                    '08:00',
-                    '08:30',
-                    '09:00',
-                    '09:30',
-                    '10:00',
-                    '10:30',
-                    '11:00',
-                    '11:30',
-                    '12:00',
-                    '12:30',
-                    '13:00',
-                    '13:30',
-                    '14:00',
-                    '14:30',
-                    '15:00',
-                    '15:30',
-                    '16:00',
-                    '16:30',
-                    '17:00',
-                    '17:30',
-                    '18:00',
-                    '18:30',
-                    '19:00',
-                    '19:30',
-                    '20:00',
-                    '20:30',
-                ])
-                ->seconds(false),
-            Forms\Components\TimePicker::make('end_time')
-                ->required()
-                ->minutesStep(15)
-                ->datalist([
-                    '08:00',
-                    '08:30',
-                    '09:00',
-                    '09:30',
-                    '10:00',
-                    '10:30',
-                    '11:00',
-                    '11:30',
-                    '12:00',
-                    '12:30',
-                    '13:00',
-                    '13:30',
-                    '14:00',
-                    '14:30',
-                    '15:00',
-                    '15:30',
-                    '16:00',
-                    '16:30',
-                    '17:00',
-                    '17:30',
-                    '18:00',
-                    '18:30',
-                    '19:00',
-                    '19:30',
-                    '20:00',
-                    '20:30',
-                ])
-                ->seconds(false),
+            Forms\Components\Select::make('clinic_id')->label('Clinic')
+                ->relationship('clinic', 'name')
+                ->searchable()
+                ->preload()
+                ->required(),
+            Forms\Components\Fieldset::make('Schedule Details')
+                ->schema([
+                    Forms\Components\TimePicker::make('start_time')
+                        ->required()
+                        ->minutesStep(15)
+                        ->datalist([
+                            '08:00',
+                            '08:30',
+                            '09:00',
+                            '09:30',
+                            '10:00',
+                            '10:30',
+                            '11:00',
+                            '11:30',
+                            '12:00',
+                            '12:30',
+                            '13:00',
+                            '13:30',
+                            '14:00',
+                            '14:30',
+                            '15:00',
+                            '15:30',
+                            '16:00',
+                            '16:30',
+                            '17:00',
+                            '17:30',
+                            '18:00',
+                            '18:30',
+                            '19:00',
+                            '19:30',
+                            '20:00',
+                            '20:30',
+                        ])
+                        ->seconds(false),
+                    Forms\Components\TimePicker::make('end_time')
+                        ->required()
+                        ->minutesStep(15)
+                        ->datalist([
+                            '08:00',
+                            '08:30',
+                            '09:00',
+                            '09:30',
+                            '10:00',
+                            '10:30',
+                            '11:00',
+                            '11:30',
+                            '12:00',
+                            '12:30',
+                            '13:00',
+                            '13:30',
+                            '14:00',
+                            '14:30',
+                            '15:00',
+                            '15:30',
+                            '16:00',
+                            '16:30',
+                            '17:00',
+                            '17:30',
+                            '18:00',
+                            '18:30',
+                            '19:00',
+                            '19:30',
+                            '20:00',
+                            '20:30',
+                        ])
+                        ->seconds(false),
+                    // Forms\Components\Select::make('day_of_week')
+                    //     ->options(\App\Enums\DayOfWeek::options())
+                    //     ->required()
+                    //     ->columnSpanFull(),
+                    Forms\Components\CheckboxList::make('day_of_week')
+                        ->options(\App\Enums\DayOfWeek::options())
+                        ->required()
+                        ->columns(6)
+                        ->columnSpanFull()
+                        ->gridDirection('column'),
+                ]),
         ]);
     }
 
@@ -100,6 +120,7 @@ class DoctorScheduleResource extends Resource
     {
         return $table->columns([
             Tables\Columns\TextColumn::make('doctor.name')->label('Doctor')->searchable(),
+            Tables\Columns\TextColumn::make('clinic.name')->label('Clinic')->searchable(),
             Tables\Columns\TextColumn::make('day_of_week')
                 ->sortable()
                 ->formatStateUsing(fn($state) => (

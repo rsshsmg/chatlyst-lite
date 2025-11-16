@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\DoctorResource\Pages;
 use App\Models\Doctor;
-use App\Models\Specialization;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -19,27 +18,34 @@ class DoctorResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Appointments';
+        return 'Master Data';
     }
 
     public static function form(Form $form): Form
     {
         return $form->schema([
+            Forms\Components\TextInput::make('code')
+                ->required()
+                ->maxLength(10)
+                ->unique(ignorable: fn($record) => $record),
             Forms\Components\TextInput::make('name')->required()->maxLength(255),
             Forms\Components\TextInput::make('title')->maxLength(255),
-            Forms\Components\Select::make('specialization_id')->label('Spesialisasi')->options(Specialization::all()->pluck('name', 'id')),
             Forms\Components\FileUpload::make('profile_photo_path')->image()->directory('doctors'),
             Forms\Components\Textarea::make('education'),
             Forms\Components\Textarea::make('experience'),
-            Forms\Components\Select::make('status')->options(['available' => 'Available', 'on_leave' => 'On leave'])->default('available'),
+            Forms\Components\Select::make('status')->options([0 => 'In-active', 1 => 'Active'])->default(1),
         ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table->columns([
+            Tables\Columns\TextColumn::make('code')
+                ->label('Ref Code')
+                ->searchable()
+                ->sortable(),
             Tables\Columns\TextColumn::make('name')->searchable()->sortable(),
-            Tables\Columns\TextColumn::make('specialization.name')->label('Spesialisasi')->searchable(),
+            Tables\Columns\TextColumn::make('specializations.name')->label('Spesialisasi')->searchable(),
             Tables\Columns\TextColumn::make('status')->sortable(),
             Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
         ])->actions([
@@ -52,6 +58,7 @@ class DoctorResource extends Resource
     public static function getRelations(): array
     {
         return [
+            \App\Filament\Resources\DoctorResource\RelationManagers\SpecializationsRelationManager::class,
             \App\Filament\Resources\DoctorResource\RelationManagers\SchedulesRelationManager::class,
             \App\Filament\Resources\DoctorResource\RelationManagers\LeavesRelationManager::class,
         ];
