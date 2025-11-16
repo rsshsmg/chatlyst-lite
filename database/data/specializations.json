@@ -1,0 +1,186 @@
+[
+	{
+		"id" : 1,
+		"code" : "SP001",
+		"name" : "UMUM",
+		"slug" : "umum",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 2,
+		"code" : "SP002",
+		"name" : "ANAK",
+		"slug" : "anak",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 3,
+		"code" : "SP003",
+		"name" : "BEDAH UMUM",
+		"slug" : "bedah-umum",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 4,
+		"code" : "SP004",
+		"name" : "BEDAH SARAF",
+		"slug" : "bedah-saraf",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 5,
+		"code" : "SP005",
+		"name" : "PENYAKIT DALAM",
+		"slug" : "penyakit-dalam",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 6,
+		"code" : "SP006",
+		"name" : "GIGI",
+		"slug" : "gigi",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 7,
+		"code" : "SP007",
+		"name" : "GIZI",
+		"slug" : "gizi",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 8,
+		"code" : "SP008",
+		"name" : "JANTUNG",
+		"slug" : "jantung",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 9,
+		"code" : "SP009",
+		"name" : "KULIT DAN KELAMIN",
+		"slug" : "kulit-dan-kelamin",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 10,
+		"code" : "SP010",
+		"name" : "MATA",
+		"slug" : "mata",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 11,
+		"code" : "SP011",
+		"name" : "KEBIDANAN DAN PENYAKIT KANDUNGAN",
+		"slug" : "kebidanan-dan-penyakit-kandungan",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 12,
+		"code" : "SP012",
+		"name" : "BEDAH ORTHOPEDI",
+		"slug" : "bedah-orthopedi",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 13,
+		"code" : "SP013",
+		"name" : "PARU ",
+		"slug" : "paru-",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 14,
+		"code" : "SP014",
+		"name" : "SYARAF",
+		"slug" : "syaraf",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 15,
+		"code" : "SP015",
+		"name" : "THT",
+		"slug" : "tht",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 16,
+		"code" : "SP016",
+		"name" : "UROLOGI",
+		"slug" : "urologi",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 17,
+		"code" : "SP017",
+		"name" : "ANASTHESI",
+		"slug" : "anasthesi",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 20,
+		"code" : "SP020",
+		"name" : "KESEHATAN JIWA",
+		"slug" : "kesehatan-jiwa",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 19,
+		"code" : "SP019",
+		"name" : "BEDAH DIGESTIVE",
+		"slug" : "bedah-digestive",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 21,
+		"code" : "SP021",
+		"name" : "KESEHATAN FISIK DAN REHABILITASI MEDIK",
+		"slug" : "kesehatan-fisik-dan-rehabilitasi-medik",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 22,
+		"code" : "SP022",
+		"name" : "MCU",
+		"slug" : "mcu",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 23,
+		"code" : "SP023",
+		"name" : "BEDAH TORAKS KARDIAK DAN VASKULAR",
+		"slug" : "bedah-toraks-kardiak-dan-vaskular",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 24,
+		"code" : "SP024",
+		"name" : "BEDAH MULUT",
+		"slug" : "bedah-mulut",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	}
+]

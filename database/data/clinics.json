@@ -1,0 +1,226 @@
+[
+	{
+		"id" : 1,
+		"code" : "PK001",
+		"name" : "POLI UMUM",
+        "slug" : "poli-umum",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 3,
+		"code" : "PK003",
+		"name" : "PARU\/TB-DOT",
+        "slug" : "paru-tb-dot",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 4,
+		"code" : "PK004",
+		"name" : "PENYAKIT DALAM",
+        "slug" : "penyakit-dalam",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 5,
+		"code" : "PK005",
+		"name" : "BEDAH UMUM",
+        "slug" : "bedah-umum",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 6,
+		"code" : "PK006",
+		"name" : "KULIT & KELAMIN",
+        "slug" : "kulit-dan-kelamin",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 7,
+		"code" : "PK007",
+		"name" : "KEBIDANAN DAN PENYAKIT KANDUNGAN ",
+        "slug" : "kebidanan-dan-penyakit-kandungan",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 8,
+		"code" : "PK008",
+		"name" : "ANAK",
+        "slug" : "anak",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 9,
+		"code" : "PK009",
+		"name" : "MATA",
+        "slug" : "mata",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 10,
+		"code" : "PK010",
+		"name" : "THT",
+        "slug" : "tht",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 11,
+		"code" : "PK011",
+		"name" : "UGD",
+        "slug" : "ugd",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 12,
+		"code" : "PK012",
+		"name" : "SARAF",
+        "slug" : "saraf",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 13,
+		"code" : "PK013",
+		"name" : "BEDAH ORTOPEDI",
+        "slug" : "bedah-orthopedi",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 14,
+		"code" : "PK014",
+		"name" : "BEDAH DIGESTIV",
+        "slug" : "bedah-digestiv",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 15,
+		"code" : "PK015",
+		"name" : "BEDAH MULUT",
+        "slug" : "bedah-mulut",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 16,
+		"code" : "PK016",
+		"name" : "GIGI",
+        "slug" : "gigi",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 17,
+		"code" : "PK017",
+		"name" : "UROLOGI",
+        "slug" : "urologi",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 18,
+		"code" : "PK018",
+		"name" : "LABORATORIUM",
+        "slug" : "laboratorium",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 19,
+		"code" : "PK019",
+		"name" : "RADIOLOGI",
+        "slug" : "radiologi",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 20,
+		"code" : "PK020",
+		"name" : "REHABILITASI MEDIK",
+        "slug" : "rehabilitasi-medik",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 21,
+		"code" : "PK021",
+		"name" : "GIZI",
+        "slug" : "gizi",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 22,
+		"code" : "PK022",
+		"name" : "JANTUNG",
+        "slug" : "jantung",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 25,
+		"code" : "PK025",
+		"name" : "HEMODIALISA",
+        "slug" : "hemodialisa",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 29,
+		"code" : "PK029",
+		"name" : "POLI JIWA",
+        "slug" : "poli-jiwa",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 30,
+		"code" : "PK030",
+		"name" : "MCU",
+        "slug" : "mcu",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 31,
+		"code" : "PK031",
+		"name" : "BEDAH TORAKS KARDIAK DAN VASKULAR",
+        "slug" : "bedah-toraks-kardiak-dan-vaskular",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 32,
+		"code" : "PK032",
+		"name" : "PSIKOLOGI",
+        "slug" : "psikologi",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 34,
+		"code" : "PK034",
+		"name" : "HOMECARE",
+        "slug" : "homecare",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	},
+	{
+		"id" : 35,
+		"code" : "PK035",
+		"name" : "BEDAH SARAF",
+        "slug" : "bedah-saraf",
+		"created_at" : "2025-11-14 16:52:44",
+		"updated_at" : "2025-11-14 16:52:44"
+	}
+]

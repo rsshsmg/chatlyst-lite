@@ -4,14 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     public function up(): void
     {
-        Schema::create('specializations', function (Blueprint $table) {
+        Schema::create('clinics', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique()->nullable();
-            $table->string('name')->unique();
+            $table->string('name');
+            $table->string('code')->unique();
             $table->string('slug')->unique();
+            $table->text('address')->nullable();
             $table->tinyInteger('status')->default(1); // 0: inactive, 1: active
             $table->timestamps();
             $table->softDeletes();
@@ -20,6 +22,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('specializations');
+        Schema::dropIfExists('clinics');
     }
 };

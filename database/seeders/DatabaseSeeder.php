@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->withPersonalTeam()->create();
 
-        $user = User::factory()->withPersonalTeam()->create([
+        $user = User::factory()->create([
             'name' => 'Test Admin',
             'email' => 'admin@sypspace.com',
         ]);
@@ -25,6 +25,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             CountrySeeder::class,
+        ]);
+        $this->call([
+            \Database\Seeders\MasterDataSeeder::class,
         ]);
     }
 }

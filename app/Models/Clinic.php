@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Specialization extends Model
+class Clinic extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['name', 'slug'];
+    protected $fillable = ['code', 'name', 'slug', 'address'];
 
-    public function doctors()
+    public function schedules()
     {
-        return $this->hasMany(Doctor::class);
+        return $this->hasMany(DoctorSchedule::class);
     }
 }
