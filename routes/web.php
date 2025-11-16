@@ -16,3 +16,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+// Public doctor schedule (accessible without login)
+Route::get('/jadwal-dokter', [\App\Http\Controllers\Public\DoctorScheduleController::class, 'index'])->name('public.doctors.index');
