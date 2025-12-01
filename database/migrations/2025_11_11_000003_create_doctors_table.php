@@ -22,6 +22,7 @@ return new class extends Migration {
             $table->string('dpjp_code')->nullable();
             $table->string('fhir_code')->nullable();
             $table->tinyInteger('status')->default(1); // 0: inactive, 1: active
+            $table->boolean('visibility')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -12,7 +12,9 @@ return new class extends Migration {
             $table->string('code')->unique()->nullable();
             $table->string('name')->unique();
             $table->string('slug')->unique();
+            $table->string('term')->nullable();
             $table->tinyInteger('status')->default(1); // 0: inactive, 1: active
+            $table->boolean('visibility')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });

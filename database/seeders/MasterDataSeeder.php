@@ -94,4 +94,30 @@ class MasterDataSeeder extends Seeder
             }
         }
     }
+
+    protected function seedDoctorSpecializations(): void
+    {
+        $path = database_path('data/doctor_specializations.json');
+        if (! File::exists($path)) {
+            return;
+        }
+
+        $items = json_decode(File::get($path), true);
+
+        foreach ($items as $item) {
+            $data = [
+                'doctor_id' => $item['doctor_id'],
+                'specialization_id' => $item['specialization_id'],
+            ];
+
+            // Use code or slug unique key to upsert
+            if (! empty($data['doctor_id']) && ! empty($data['specialization_id'])) {
+                $doctor = Doctor::find($data['doctor_id']);
+                $specialization = Specialization::find($data['specialization_id']);
+                if ($doctor && $specialization) {
+                    $doctor->specializations()->syncWithoutDetaching($specialization->id);
+                }
+            }
+        }
+    }
 }

@@ -134,7 +134,7 @@ class DoctorScheduleResource extends Resource
             Tables\Actions\EditAction::make(),
         ])->bulkActions([
             Tables\Actions\DeleteBulkAction::make(),
-        ]);
+        ])->defaultSort('day_of_week', 'asc');
     }
 
     public static function getPages(): array

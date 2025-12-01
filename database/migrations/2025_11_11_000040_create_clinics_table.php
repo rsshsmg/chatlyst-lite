@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('address')->nullable();
             $table->tinyInteger('status')->default(1); // 0: inactive, 1: active
+            $table->boolean('visibility')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });

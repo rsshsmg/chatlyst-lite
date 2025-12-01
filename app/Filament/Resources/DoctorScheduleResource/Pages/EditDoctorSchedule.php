@@ -26,8 +26,8 @@ class EditDoctorSchedule extends EditRecord
     {
         return $form->schema([
             Forms\Components\Select::make('doctor_id')->label('Doctor')->options(Doctor::all()->pluck('name', 'id'))->required(),
-            Forms\Components\Select::make('day_of_week')
-                ->options(\App\Enums\DayOfWeek::options())
+            Forms\Components\Select::make('clinic_id')->label('Clinic')
+                ->relationship('clinic', 'name')
                 ->required(),
             Forms\Components\TimePicker::make('start_time')
                 ->required()
@@ -93,6 +93,10 @@ class EditDoctorSchedule extends EditRecord
                     '20:30',
                 ])
                 ->seconds(false),
+            Forms\Components\Select::make('day_of_week')
+                ->options(\App\Enums\DayOfWeek::options())
+                ->required()
+                ->disabled(),
         ]);
     }
 

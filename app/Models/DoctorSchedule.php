@@ -13,8 +13,9 @@ class DoctorSchedule extends Model
 
     protected $fillable = ['doctor_id', 'clinic_id', 'day_of_week', 'start_time', 'end_time'];
 
+    // Keep as string for now until DayOfWeek DB migration is applied
     protected $casts = [
-        'day_of_week' => \App\Enums\DayOfWeek::class,
+        'day_of_week' => 'string',
     ];
 
     protected static function booted(): void
@@ -40,5 +41,35 @@ class DoctorSchedule extends Model
     public function clinic()
     {
         return $this->belongsTo(Clinic::class);
+    }
+
+    public function getPeriodAttribute(): string
+    {
+        // parse jam dari start_at (asumsi format 'H:i:s' atau 'H:i')
+        $start = Carbon::parse($this->start_time);
+        $h = (int) $start->format('H');
+
+        // Aturan: pagi 05-11, siang 12-16, malam 17-4
+        if ($h >= 5 && $h <= 11) {
+            return 'morning';
+        }
+
+        if ($h >= 12 && $h <= 16) {
+            return 'afternoon';
+        }
+
+        // else malam (17-23 and 0-4)
+        return 'night';
+    }
+
+    // optional: nicely formatted label
+    public function getPeriodLabelAttribute(): string
+    {
+        return match ($this->period) {
+            'morning' => 'Pagi',
+            'afternoon' => 'Siang',
+            'night' => 'Malam',
+            default => ucfirst($this->period),
+        };
     }
 }

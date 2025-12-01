@@ -18,6 +18,12 @@ class SchedulesRelationManager extends RelationManager
     public function form(Form $form): Form
     {
         return $form->schema([
+            Forms\Components\Select::make('clinic_id')->label('Clinic')
+                ->relationship('clinic', 'name')
+                ->searchable()
+                ->preload()
+                ->required()
+                ->columnSpanFull(),
             // Forms\Components\Select::make('day_of_week')
             //     ->options(\App\Enums\DayOfWeek::options())
             //     ->required()
@@ -98,6 +104,7 @@ class SchedulesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table->columns([
+            Tables\Columns\TextColumn::make('clinic.name')->label('Clinic')->searchable(),
             Tables\Columns\TextColumn::make('day_of_week')
                 ->sortable()
                 ->formatStateUsing(fn($state) => (
@@ -108,7 +115,53 @@ class SchedulesRelationManager extends RelationManager
             Tables\Columns\TextColumn::make('start_time')->label('Start')->dateTime('H:i'),
             Tables\Columns\TextColumn::make('end_time')->label('End')->dateTime('H:i'),
         ])->filters([])->headerActions([
-            Tables\Actions\CreateAction::make(),
+            Tables\Actions\CreateAction::make()
+                ->action(function (array $data) {
+                    // If multiple days selected (checkbox list), create a schedule per day
+                    $days = $data['day_of_week'] ?? null;
+
+                    // Ensure we have the relationship instance to create children
+                    $relation = $this->getRelationship();
+
+                    // normalize days to array
+                    $daysArr = is_array($days) ? $days : ($days !== null ? [$days] : []);
+
+                    // prepare base payload (relation will auto-fill FK to doctor)
+                    $base = $data;
+                    unset($base['day_of_week']);
+
+                    // collect payloads to create
+                    $toCreate = [];
+                    foreach ($daysArr as $day) {
+                        $payload = array_merge($base, ['day_of_week' => $day]);
+
+                        // Prevent duplicate exact schedule (same day, start, end)
+                        $exists = $relation->where('day_of_week', $day)
+                            ->where('start_time', $payload['start_time'])
+                            ->where('end_time', $payload['end_time'])
+                            ->exists();
+
+                        if (! $exists) {
+                            $toCreate[] = $payload;
+                        }
+                    }
+
+                    if (empty($toCreate)) {
+                        // Nothing to create - maybe all selected slots already exist
+                        throw \Illuminate\Validation\ValidationException::withMessages([
+                            'day_of_week' => 'No new schedules to create. The selected day/time combinations already exist.',
+                        ]);
+                    }
+
+                    // Use createMany to insert all payloads in one go
+                    if (method_exists($relation, 'createMany')) {
+                        $relation->createMany($toCreate);
+                    } else {
+                        foreach ($toCreate as $payload) {
+                            $relation->create($payload);
+                        }
+                    }
+                }),
         ])->actions([
             Tables\Actions\EditAction::make()
                 ->form([
@@ -194,6 +247,6 @@ class SchedulesRelationManager extends RelationManager
             Tables\Actions\DeleteAction::make(),
         ])->bulkActions([
             Tables\Actions\DeleteBulkAction::make(),
-        ]);
+        ])->defaultSort('day_of_week', 'asc');
     }
 }

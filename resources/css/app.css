@@ -6,4 +6,7 @@
     display: none;
 }
 
-:root{--brand-blue:#0393E3;--brand-green:#4FDE9E}
+:root{
+    --brand-blue:#0393E3;
+    --brand-green:#4FDE9E;
+}

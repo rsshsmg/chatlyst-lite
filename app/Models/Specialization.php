@@ -11,7 +11,7 @@ class Specialization extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['name', 'slug'];
+    protected $fillable = ['name', 'slug', 'term', 'code', 'status', 'visibility'];
 
     public function doctors()
     {

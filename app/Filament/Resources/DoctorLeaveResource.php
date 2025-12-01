@@ -25,9 +25,13 @@ class DoctorLeaveResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Forms\Components\Select::make('doctor_id')->label('Doctor')->options(Doctor::all()->pluck('name', 'id'))->required(),
             Forms\Components\DatePicker::make('start_date')->required(),
             Forms\Components\DatePicker::make('end_date'),
+            Forms\Components\Select::make('doctor_id')
+                ->label('Doctor')
+                ->options(Doctor::whereHas('schedules')->pluck('name', 'id'))
+                ->required()
+                ->searchable(),
             Forms\Components\Textarea::make('reason'),
         ]);
     }

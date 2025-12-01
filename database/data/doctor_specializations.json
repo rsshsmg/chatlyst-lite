@@ -1,0 +1,303 @@
+[
+	{
+		"id" : 1,
+		"doctor_id" : 1,
+		"specialization_id" : 10,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 2,
+		"doctor_id" : 3,
+		"specialization_id" : 3,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 3,
+		"doctor_id" : 4,
+		"specialization_id" : 15,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 4,
+		"doctor_id" : 5,
+		"specialization_id" : 3,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 5,
+		"doctor_id" : 6,
+		"specialization_id" : 3,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 6,
+		"doctor_id" : 7,
+		"specialization_id" : 23,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 7,
+		"doctor_id" : 9,
+		"specialization_id" : 2,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 8,
+		"doctor_id" : 10,
+		"specialization_id" : 6,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 9,
+		"doctor_id" : 12,
+		"specialization_id" : 13,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 10,
+		"doctor_id" : 13,
+		"specialization_id" : 9,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 11,
+		"doctor_id" : 14,
+		"specialization_id" : 5,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 12,
+		"doctor_id" : 16,
+		"specialization_id" : 9,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 13,
+		"doctor_id" : 17,
+		"specialization_id" : 15,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 14,
+		"doctor_id" : 18,
+		"specialization_id" : 11,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 15,
+		"doctor_id" : 19,
+		"specialization_id" : 10,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 16,
+		"doctor_id" : 20,
+		"specialization_id" : 10,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 17,
+		"doctor_id" : 21,
+		"specialization_id" : 11,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 18,
+		"doctor_id" : 25,
+		"specialization_id" : 7,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 19,
+		"doctor_id" : 26,
+		"specialization_id" : 8,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 20,
+		"doctor_id" : 27,
+		"specialization_id" : 16,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 21,
+		"doctor_id" : 28,
+		"specialization_id" : 17,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 22,
+		"doctor_id" : 29,
+		"specialization_id" : 17,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 23,
+		"doctor_id" : 30,
+		"specialization_id" : 17,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 24,
+		"doctor_id" : 31,
+		"specialization_id" : 11,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 25,
+		"doctor_id" : 38,
+		"specialization_id" : 5,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 26,
+		"doctor_id" : 40,
+		"specialization_id" : 2,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 27,
+		"doctor_id" : 42,
+		"specialization_id" : 6,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 28,
+		"doctor_id" : 44,
+		"specialization_id" : 18,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 29,
+		"doctor_id" : 45,
+		"specialization_id" : 5,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 30,
+		"doctor_id" : 46,
+		"specialization_id" : 15,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 31,
+		"doctor_id" : 48,
+		"specialization_id" : 14,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 32,
+		"doctor_id" : 49,
+		"specialization_id" : 6,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 33,
+		"doctor_id" : 50,
+		"specialization_id" : 12,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 34,
+		"doctor_id" : 51,
+		"specialization_id" : 22,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 35,
+		"doctor_id" : 56,
+		"specialization_id" : 12,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 36,
+		"doctor_id" : 58,
+		"specialization_id" : 5,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 37,
+		"doctor_id" : 59,
+		"specialization_id" : 19,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 38,
+		"doctor_id" : 60,
+		"specialization_id" : 4,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 39,
+		"doctor_id" : 62,
+		"specialization_id" : 2,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 40,
+		"doctor_id" : 63,
+		"specialization_id" : 2,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 41,
+		"doctor_id" : 64,
+		"specialization_id" : 6,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 42,
+		"doctor_id" : 65,
+		"specialization_id" : 20,
+		"created_at" : null,
+		"updated_at" : null
+	},
+	{
+		"id" : 43,
+		"doctor_id" : 66,
+		"specialization_id" : 17,
+		"created_at" : null,
+		"updated_at" : null
+	}
+]

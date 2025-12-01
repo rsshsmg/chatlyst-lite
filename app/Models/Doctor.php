@@ -24,6 +24,7 @@ class Doctor extends Model
         'dpjp_code',
         'fhir_code',
         'status',
+        'visibility',
     ];
 
     public const STATUS_ACTIVE = 'active';

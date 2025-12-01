@@ -26,17 +26,18 @@ class SpecializationResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Forms\Components\TextInput::make('code')
-                ->label('Ref Code')
-                ->required()
-                ->maxLength(10)
-                ->unique(ignorable: fn($record) => $record),
             Forms\Components\TextInput::make('name')
                 ->required()
                 ->maxLength(255)
                 ->live(onBlur: true)
                 ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
             Forms\Components\TextInput::make('slug')->required()->maxLength(255),
+            Forms\Components\TextInput::make('term'),
+            Forms\Components\TextInput::make('code')
+                ->label('Ref Code')
+                ->required()
+                ->maxLength(10)
+                ->unique(ignorable: fn($record) => $record),
         ]);
     }
 
@@ -44,8 +45,11 @@ class SpecializationResource extends Resource
     {
         return $table->columns([
             Tables\Columns\TextColumn::make('code')->label('Ref Code')->searchable()->sortable(),
-            Tables\Columns\TextColumn::make('name')->limit(50)->searchable(),
-            Tables\Columns\TextColumn::make('slug')->limit(50)->searchable(),
+            Tables\Columns\TextColumn::make('name')
+                ->limit(50)
+                ->searchable()
+                ->description(fn(Specialization $record): ?string => $record?->slug),
+            Tables\Columns\TextColumn::make('term')->limit(50)->searchable(),
             Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable(),
         ])->filters([])->actions([
             Tables\Actions\EditAction::make(),

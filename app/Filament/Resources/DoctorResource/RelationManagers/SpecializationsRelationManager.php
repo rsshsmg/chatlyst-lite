@@ -32,7 +32,9 @@ class SpecializationsRelationManager extends RelationManager
             Tables\Columns\TextColumn::make('name')->searchable()->sortable(),
             // Tables\Columns\TextColumn::make('slug')->searchable(),
         ])->filters([])->headerActions([
-            Tables\Actions\AttachAction::make()->preloadRecordSelect(),
+            Tables\Actions\AttachAction::make()
+                ->preloadRecordSelect()
+                ->recordSelectSearchColumns(['name', 'term']),
         ])->actions([
             Tables\Actions\DetachAction::make(),
         ])->bulkActions([
